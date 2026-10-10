@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#9B59FF">
+<title>📓 دفتري — النسخة المُصلَّحة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF6FB5;--pink-light:#FFD6EC;--pink-soft:#FFF0F8;
+  --purple:#9B59FF;--purple-light:#E8D5FF;--purple-soft:#F5EEFF;
+  --mint:#3DD9B0;--mint-light:#D4F8EC;
+  --yellow:#FFD93D;--yellow-light:#FFF8C2;
+  --blue:#5EC8FF;--blue-light:#D6EEFF;
+  --orange:#FFA45B;--red:#FF6B6B;
+  --green:#43A047;--green-light:#C8E6C9;
+  --text:#2D1B4E;--text-soft:#6B5B8F;--white:#FFF;
+  --shadow-sm:0 3px 10px rgba(155,89,255,0.12);
+  --shadow-md:0 8px 25px rgba(155,89,255,0.18);
+  --shadow-lg:0 15px 40px rgba(255,111,181,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Tajawal',sans-serif;background:linear-gradient(135deg,#FFE5F4 0%,#E8D5FF 30%,#D6EEFF 60%,#D4F8EC 100%);background-attachment:fixed;min-height:100vh;color:var(--text);direction:rtl;overflow-x:hidden;line-height:1.6;padding-bottom:20px;}
+button,input,select{font:inherit;color:inherit;}
+button{cursor:pointer;}
+:focus-visible{outline:3px solid var(--purple);outline-offset:3px;border-radius:8px;}
+.hidden{display:none!important;}
+
+.bg-decor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-decor .uni{position:absolute;font-size:2.5rem;opacity:0.10;animation:float 6s ease-in-out infinite;}
+.bg-decor .uni:nth-child(1){top:8%;left:5%;}
+.bg-decor .uni:nth-child(2){top:25%;right:8%;animation-delay:1s;font-size:3rem;}
+.bg-decor .uni:nth-child(3){bottom:15%;left:10%;animation-delay:2s;}
+.bg-decor .uni:nth-child(4){bottom:25%;right:12%;animation-delay:3s;font-size:2rem;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px) rotate(8deg);}}
+.bg-decor .star{position:absolute;font-size:1.2rem;opacity:0.3;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:0.2;}50%{opacity:0.7;}}
+
+header{background:linear-gradient(135deg,#FF6FB5 0%,#9B59FF 50%,#5EC8FF 100%);color:white;padding:18px 20px;border-radius:0 0 32px 32px;box-shadow:0 10px 30px rgba(155,89,255,0.35);position:relative;z-index:10;overflow:hidden;}
+header::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,0.25) 0%,transparent 40%);pointer-events:none;}
+.header-content{position:relative;z-index:2;max-width:900px;margin:0 auto;display:flex;align-items:center;gap:15px;}
+.header-logo{font-size:2.5rem;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-8px) rotate(5deg);}}
+.header-text h1{font-size:1.35rem;font-weight:900;}
+.header-text p{font-size:0.8rem;opacity:0.95;margin-top:3px;}
+
+.save-status{position:fixed;top:12px;inset-inline-end:12px;z-index:80;background:rgba(255,255,255,0.95);padding:6px 12px;border-radius:14px;font-size:0.78rem;font-weight:700;color:var(--text-soft);box-shadow:var(--shadow-sm);transition:opacity 0.4s;pointer-events:none;}
+.save-status.ok{color:#0a7a5a;}
+.save-status.err{color:var(--red);}
+.save-status.fade{opacity:0.25;}
+
+.tabs{display:flex;gap:8px;padding:14px 18px;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;background:rgba(255,255,255,0.85);backdrop-filter:blur(15px);z-index:20;border-bottom:2px dashed var(--pink-light);}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:10px 16px;border-radius:18px;background:var(--white);border:2.5px solid var(--purple-light);color:var(--text);font-family:inherit;font-weight:700;font-size:0.9rem;transition:all 0.25s;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);white-space:nowrap;}
+.tab:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.tab.active{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border-color:transparent;box-shadow:0 6px 20px rgba(255,111,181,0.45);}
+
+.container{max-width:900px;margin:0 auto;padding:18px;position:relative;z-index:5;}
+.section{display:none;}
+.section.active{display:block;animation:slideIn 0.4s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+
+.card{background:var(--white);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow-md);border:2px solid var(--purple-light);}
+.card h2{font-size:1.25rem;margin-bottom:12px;display:flex;align-items:center;gap:10px;color:var(--purple);font-weight:900;}
+.card h2 .icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:linear-gradient(135deg,var(--pink-light),var(--purple-light));border-radius:11px;font-size:1.2rem;}
+
+.hero{background:linear-gradient(135deg,#FFD6EC,#E8D5FF,#D6EEFF);border-radius:24px;padding:22px;margin-bottom:16px;text-align:center;border:2px solid white;box-shadow:var(--shadow-md);}
+.hero h2{font-size:1.4rem;font-weight:900;color:var(--purple);margin-bottom:8px;}
+.hero p{font-size:0.98rem;color:var(--text-soft);line-height:1.6;}
+.overall-progress{margin-top:12px;padding:10px 14px;background:rgba(255,255,255,0.7);border-radius:16px;}
+.overall-progress .row{display:flex;justify-content:space-between;font-size:0.85rem;font-weight:700;color:var(--text-soft);margin-bottom:6px;}
+.overall-progress .bar{height:10px;background:rgba(155,89,255,0.15);border-radius:6px;overflow:hidden;}
+.overall-progress .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple),var(--mint));border-radius:6px;transition:width 0.6s;}
+
+.chapters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-top:12px;}
+.chapter-card{background:linear-gradient(135deg,var(--pink-light),var(--purple-light));border-radius:20px;padding:16px 12px;text-align:center;transition:all 0.3s;border:2.5px solid transparent;position:relative;font-family:inherit;color:inherit;width:100%;display:block;min-height:130px;}
+.chapter-card:hover{transform:translateY(-5px);border-color:var(--pink);box-shadow:0 10px 22px rgba(255,111,181,0.35);}
+.chapter-card .emoji{font-size:1.9rem;display:block;margin-bottom:4px;}
+.chapter-card .num{font-size:1.3rem;font-weight:900;color:var(--pink);line-height:1;}
+.chapter-card .title{font-size:0.88rem;font-weight:700;margin-top:5px;color:var(--text);line-height:1.3;}
+.chapter-card .bar{height:6px;background:rgba(255,255,255,0.6);border-radius:4px;overflow:hidden;margin-top:8px;}
+.chapter-card .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));border-radius:4px;transition:width 0.6s;}
+.chapter-card .sub{font-size:0.72rem;color:var(--text-soft);margin-top:4px;font-weight:700;}
+.chapter-card .status-badge{position:absolute;top:8px;inset-inline-end:8px;font-size:0.85rem;}
+
+.btn{padding:11px 20px;border:none;border-radius:16px;font-family:inherit;font-size:0.95rem;font-weight:700;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-sm);color:white;min-height:46px;}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.btn:disabled{opacity:0.45;cursor:not-allowed;}
+.btn-primary{background:linear-gradient(135deg,var(--pink),var(--purple));}
+.btn-mint{background:linear-gradient(135deg,var(--mint),var(--blue));}
+.btn-ghost{background:var(--white);color:var(--purple);border:2.5px solid var(--purple-light);}
+.btn-ghost:hover:not(:disabled){background:var(--purple-soft);}
+.btn-warn{background:linear-gradient(135deg,var(--red),var(--orange));}
+.btn-sm{padding:8px 14px;font-size:0.85rem;min-height:38px;}
+
+.info-banner{background:linear-gradient(135deg,var(--yellow-light),var(--pink-light));border:2.5px dashed var(--pink);border-radius:16px;padding:11px 15px;margin-bottom:14px;text-align:center;font-weight:700;color:var(--purple);font-size:0.9rem;}
+
+.progress-bar{height:10px;background:var(--purple-light);border-radius:8px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple),var(--mint));border-radius:8px;transition:width 0.5s;}
+
+.unit-overlay{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#FFE5F4 0%,#E8D5FF 30%,#D6EEFF 60%,#D4F8EC 100%);display:flex;flex-direction:column;overflow-y:auto;}
+.unit-overlay.hidden{display:none;}
+.unit-topbar{display:flex;align-items:center;gap:10px;padding:14px 16px;color:white;font-weight:900;font-size:1.05rem;border-radius:0 0 24px 24px;box-shadow:0 8px 24px rgba(0,0,0,0.15);position:sticky;top:0;z-index:5;}
+.unit-topbar .ttl{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.unit-topbar .iconbtn{background:rgba(255,255,255,0.22);border:0;border-radius:14px;width:44px;height:44px;color:white;font-size:1.3rem;display:grid;place-items:center;font-weight:900;}
+.unit-topbar .stars-pill{background:rgba(255,255,255,0.25);padding:6px 12px;border-radius:16px;font-size:0.88rem;font-weight:900;white-space:nowrap;}
+.unit-progress-wrap{padding:8px 20px 0;}
+.unit-meta{display:flex;justify-content:space-between;align-items:center;padding:8px 20px 0;font-weight:900;color:var(--purple);font-size:0.88rem;}
+.unit-body{flex:1;padding:16px 18px 24px;max-width:720px;margin:0 auto;width:100%;}
+.unit-bottom{display:flex;align-items:center;gap:10px;padding:12px 18px calc(18px + env(safe-area-inset-bottom));position:sticky;bottom:0;background:linear-gradient(transparent,rgba(255,255,255,0.92) 30%);backdrop-filter:blur(6px);}
+.unit-bottom .grow{flex:1;}
+.linkbtn{background:none;border:0;color:var(--purple);font-weight:900;padding:10px;font-size:0.9rem;border-radius:10px;}
+.hintbtn{background:linear-gradient(135deg,var(--yellow),var(--orange));border:0;color:var(--text);font-weight:900;padding:10px 14px;font-size:0.9rem;border-radius:14px;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);cursor:pointer;}
+
+.question-card{background:var(--white);border:3px solid var(--pink-light);border-radius:22px;padding:20px;margin-bottom:14px;box-shadow:0 6px 20px rgba(255,111,181,0.15);position:relative;}
+.question-card::before{content:"";position:absolute;top:-3px;inset-inline-start:-3px;width:44px;height:44px;background:linear-gradient(135deg,var(--yellow),var(--orange));border-radius:22px 0 22px 0;}
+.question-card .q-badge{position:absolute;top:8px;inset-inline-start:8px;background:white;color:var(--orange);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:0.9rem;z-index:2;}
+.q{font-size:1.3rem;font-weight:700;line-height:1.9;margin:0;color:var(--text);padding-inline-start:44px;}
+.fb{margin-top:14px;padding:14px;border-radius:16px;font-weight:900;font-size:1rem;text-align:center;}
+.fb.good{background:linear-gradient(135deg,var(--mint-light),#E8FFF8);color:#0a7a5a;border:2px solid var(--mint);}
+.fb.try{background:linear-gradient(135deg,var(--yellow-light),#FFFDF0);color:#8a6a00;border:2px solid var(--yellow);}
+.fb.explain{background:linear-gradient(135deg,#E3F2FD,#BBDEFB);color:#0d47a1;border:2px solid #64B5F6;font-size:0.95rem;line-height:1.7;text-align:start;}
+
+/* ✨ FIX: pointer-events:none على SVG والـ span */
+.flower-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:14px 0;}
+.flower-choice{background:transparent;border:0;padding:0;width:100%;min-height:150px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:all 0.25s;font:inherit;color:inherit;}
+.flower-choice:hover:not(:disabled){transform:translateY(-5px) scale(1.04);}
+.flower-choice:disabled{cursor:default;}
+.flower-svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 4px 10px rgba(255,111,181,0.25));pointer-events:none;}
+.flower-svg .petal{fill:#FFFDF9;stroke:#F8BBD0;stroke-width:2;transition:all 0.25s;}
+.flower-svg .center{fill:#FFF8E1;stroke:#FFD93D;stroke-width:2.5;}
+.flower-svg .leaf{fill:#C8E6C9;stroke:#66BB6A;stroke-width:1.5;}
+.flower-choice.sel .petal{fill:#FFE0B2;stroke:#FFD93D;}
+.flower-choice.sel .center{fill:#FFCC80;stroke:#FFA45B;}
+.flower-choice.ok .petal,.flower-choice.right .petal{fill:#B9F6CA;stroke:#43A047;}
+.flower-choice.ok .center,.flower-choice.right .center{fill:#69F0AE;stroke:#2E7D32;}
+.flower-choice.bad .petal{fill:#FFCDD2;stroke:#E53935;}
+.flower-choice.ok::after{content:"✓";position:absolute;top:4px;inset-inline-end:8px;color:var(--green);font-size:1.8rem;font-weight:900;z-index:3;}
+.flower-choice.bad::after{content:"✗";position:absolute;top:4px;inset-inline-end:8px;color:var(--red);font-size:1.8rem;font-weight:900;z-index:3;}
+.flower-text{position:relative;z-index:2;font-family:'Amiri',serif;font-weight:900;font-size:1.05rem;color:var(--text);max-width:64%;text-align:center;line-height:1.25;padding:8px;text-shadow:0 1px 2px rgba(255,255,255,0.9);pointer-events:none;}
+
+.cloud-card{background:linear-gradient(135deg,#FFFDF9,#FFF5FB);border:3px dashed var(--pink);border-radius:50px;padding:32px 22px 26px;text-align:center;margin:20px 0 22px;position:relative;box-shadow:0 8px 20px rgba(255,111,181,0.18);}
+.cloud-card::before,.cloud-card::after{content:"";position:absolute;background:linear-gradient(135deg,#FFFDF9,#FFF5FB);border:3px dashed var(--pink);border-radius:50%;}
+.cloud-card::before{width:90px;height:90px;top:-45px;right:40px;}
+.cloud-card::after{width:70px;height:70px;top:-35px;left:50px;}
+.cloud-num{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--pink),var(--purple));color:white;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:900;box-shadow:0 4px 12px rgba(255,111,181,0.5);font-size:1.1rem;}
+.cloud-content{position:relative;z-index:2;font-family:'Amiri',serif;font-size:1.1rem;line-height:2;color:var(--purple);font-weight:700;direction:rtl;}
+
+.pie-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin:14px 0;}
+.pie-circle{width:200px;height:200px;position:relative;margin:0 auto;background:conic-gradient(from 0deg,#FFD6EC 0deg 72deg,#E8D5FF 72deg 144deg,#D6EEFF 144deg 216deg,#D4F8EC 216deg 288deg,#FFF8C2 288deg 360deg);border-radius:50%;box-shadow:0 6px 18px rgba(155,89,255,0.25);border:4px solid white;}
+.pie-piece{position:absolute;font-family:'Amiri',serif;font-weight:900;font-size:1.8rem;color:var(--text);display:grid;place-items:center;width:44px;height:44px;background:rgba(255,255,255,0.9);border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.15);z-index:2;}
+.pie-piece.p1{top:6%;left:50%;transform:translateX(-50%);}
+.pie-piece.p2{top:38%;right:6%;}
+.pie-piece.p3{bottom:6%;right:30%;}
+.pie-piece.p4{bottom:6%;left:30%;}
+.pie-piece.p5{top:38%;left:6%;}
+.pie-piece.p6{top:12%;right:28%;}
+.pie-piece.p7{bottom:12%;left:28%;}
+
+.sort-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0;}
+.sort-house{background:linear-gradient(135deg,#FFFDF9,#FFF5FB);border:3px solid var(--purple-light);border-radius:14px;padding:14px 10px;min-height:150px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all 0.25s;cursor:pointer;}
+.sort-house.over{border-color:var(--pink);background:linear-gradient(135deg,#FFD6EC,#E8D5FF);}
+.sort-house .roof{background:linear-gradient(135deg,#E53935,#B71C1C);color:white;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-family:'Amiri',serif;font-size:1.6rem;font-weight:900;margin-bottom:4px;border:3px solid white;box-shadow:0 4px 10px rgba(183,28,28,0.3);}
+.sort-house .placed-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+.sort-house .chip-mini{background:linear-gradient(135deg,var(--mint-light),#E8FFF8);border:2px solid var(--mint);border-radius:10px;padding:4px 10px;font-family:'Amiri',serif;font-size:0.95rem;font-weight:700;color:#0a7a5a;cursor:pointer;transition:all 0.2s;}
+.sort-house .chip-mini:hover{background:#FFCDD2;border-color:#E53935;color:#B71C1C;}
+.sort-pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:var(--purple-soft);border-radius:16px;margin:10px 0 14px;min-height:60px;}
+.chip-sort{background:white;border:2.5px solid var(--purple-light);border-radius:14px;padding:8px 14px;font-family:'Amiri',serif;font-size:1.15rem;font-weight:700;color:var(--purple);transition:all 0.2s;cursor:pointer;}
+.chip-sort:hover:not(:disabled){border-color:var(--pink);transform:translateY(-2px);}
+.chip-sort.sel{background:linear-gradient(135deg,var(--yellow-light),var(--pink-light));border-color:var(--yellow);}
+
+.train-row{display:flex;align-items:center;gap:4px;margin:14px 0;padding:10px;background:linear-gradient(135deg,#FFF8E1,#FFF0F8);border-radius:20px;border:2.5px dashed var(--orange);}
+.train-locomotive{width:56px;height:56px;background:linear-gradient(135deg,#E53935,#B71C1C);border-radius:14px 14px 8px 8px;display:grid;place-items:center;font-size:1.6rem;flex-shrink:0;box-shadow:0 3px 8px rgba(183,28,28,0.35);position:relative;}
+.train-locomotive::after{content:"";position:absolute;bottom:-6px;left:6px;right:6px;height:8px;background:#333;border-radius:50%;}
+.train-locomotive .smoke{position:absolute;top:-6px;right:-8px;font-size:0.9rem;opacity:0.7;animation:smoke 2s infinite;}
+@keyframes smoke{0%{transform:translateY(0) scale(1);opacity:0.7;}100%{transform:translateY(-15px) scale(1.4);opacity:0;}}
+.train-wagon{flex:1;display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FFE0B2,#FFCC80);border-radius:14px;padding:8px 12px;border:2.5px solid #FFA45B;box-shadow:0 3px 8px rgba(255,164,91,0.3);position:relative;min-height:64px;flex-direction:row-reverse;justify-content:flex-end;}
+.train-wagon::before{content:"";position:absolute;bottom:-7px;left:14px;width:14px;height:14px;border-radius:50%;background:#333;box-shadow:0 0 0 3px white;}
+.train-wagon::after{content:"";position:absolute;bottom:-7px;right:14px;width:14px;height:14px;border-radius:50%;background:#333;box-shadow:0 0 0 3px white;}
+.train-word{font-family:'Amiri',serif;font-size:1.6rem;font-weight:900;color:var(--text);direction:rtl;padding-inline-start:8px;}
+.train-input{width:52px;height:52px;border:3px solid var(--pink);border-radius:12px;background:white;text-align:center;font-family:'Amiri',serif;font-size:1.8rem;font-weight:900;color:var(--purple);direction:rtl;flex-shrink:0;}
+.train-input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(155,89,255,0.15);}
+.train-input.ok{border-color:var(--mint);background:var(--mint-light);}
+.train-input.bad{border-color:var(--red);background:#FFE0E0;}
+
+.choices{display:grid;gap:12px;}
+.choice{display:flex;align-items:center;gap:14px;padding:16px 18px;background:linear-gradient(135deg,#FFFFFF,#F5EEFF);border:2.5px solid var(--purple-light);border-radius:20px;min-height:76px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 14px rgba(155,89,255,0.12);width:100%;text-align:start;font:inherit;direction:rtl;}
+.choice:hover:not(:disabled){transform:translateY(-3px);border-color:var(--purple);background:linear-gradient(135deg,#FFFFFF,#E8D5FF);box-shadow:0 8px 22px rgba(155,89,255,0.25);}
+.choice:disabled{cursor:default;}
+.choice-badge{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Tajawal',sans-serif;font-weight:900;font-size:1.05rem;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 3px 8px rgba(155,89,255,0.4);line-height:1;padding-bottom:2px;}
+.choice-text{flex:1;font-family:'Amiri',serif;font-weight:900;font-size:1.5rem;color:var(--text);text-align:start;line-height:1.3;min-width:0;}
+.choice.big .choice-text{font-size:2rem;}
+.choice.ok{background:linear-gradient(135deg,var(--mint),#5FE8C5);border-color:var(--mint);}
+.choice.ok .choice-badge{background:linear-gradient(135deg,#0a7a5a,#43A047);}
+.choice.ok .choice-text{color:white;}
+.choice.bad{background:#E0E0E0;border-color:#BDBDBD;box-shadow:none;}
+.choice.bad .choice-badge{background:linear-gradient(135deg,#757575,#9E9E9E);}
+.choice.bad .choice-text{color:#666;}
+
+.tapwrap{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.tapitem{position:relative;background:white;border:2.5px solid var(--purple-light);border-radius:16px;padding:14px 20px;font-size:1.7rem;min-width:62px;min-height:62px;font-family:'Amiri',serif;font-weight:700;color:var(--purple);transition:all 0.2s;}
+.tapitem.word{font-size:1.2rem;padding:12px 16px;}
+.tapitem:hover:not(:disabled){border-color:var(--pink);transform:translateY(-2px);}
+.tapitem.sel{background:linear-gradient(135deg,var(--yellow-light),var(--pink-light));border-color:var(--yellow);}
+.tapitem.right{background:linear-gradient(135deg,var(--mint-light),#E8FFF8);border-color:var(--mint);}
+
+.mcols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.mtile{display:block;width:100%;background:white;border:2.5px solid var(--purple-light);border-radius:14px;padding:12px;font-size:1.15rem;font-weight:700;margin:6px 0;text-align:center;transition:all 0.2s;min-height:54px;color:var(--text);}
+.mtile.arabic{font-family:'Amiri',serif;font-size:1.3rem;color:var(--purple);}
+.mtile.emoji{font-size:2.2rem;padding:8px;}
+.mtile:hover:not(:disabled){border-color:var(--pink);transform:translateY(-2px);}
+.mtile.sel{background:linear-gradient(135deg,var(--yellow-light),var(--pink-light));border-color:var(--yellow);}
+.mtile.done{background:linear-gradient(135deg,var(--mint-light),#E8FFF8);border-color:var(--mint);color:var(--mint);cursor:default;opacity:0.7;}
+
+.ordlab{font-weight:900;margin-top:8px;color:var(--text-soft);font-size:0.88rem;}
+.ordbox,.ordpool{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:16px;min-height:62px;background:var(--purple-soft);}
+.ordpool{background:var(--pink-soft);}
+.chip{background:white;border:2.5px solid var(--purple-light);border-radius:14px;padding:10px 16px;font-size:1.3rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;font-family:'Amiri',serif;color:var(--purple);transition:all 0.2s;min-height:52px;cursor:pointer;}
+.chip:hover:not(:disabled){border-color:var(--pink);}
+.chip.placed{background:linear-gradient(135deg,var(--mint-light),#E8FFF8);border-color:var(--mint);color:var(--mint);}
+.chip b{background:var(--mint);color:white;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:0.82rem;}
+
+.trace-wrap{background:linear-gradient(135deg,#FFFDF9,#FFF5FB);border:2.5px solid var(--pink);border-radius:20px;padding:12px;margin-top:8px;box-shadow:0 10px 25px rgba(255,111,181,0.2);}
+.letter-display{font-family:'Amiri',serif;font-size:4.5rem;text-align:center;color:var(--purple);line-height:1;margin:6px 0;}
+.trace-canvas{display:block;width:100%;height:auto;min-height:220px;background:white;border-radius:12px;touch-action:none;cursor:crosshair;box-shadow:inset 0 0 0 2px var(--purple-light);}
+.trace-controls{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+
+.word-display{font-family:'Amiri',serif;font-size:3.5rem;text-align:center;color:var(--purple);direction:rtl;line-height:1.3;margin:10px 0;padding:16px;background:linear-gradient(135deg,var(--yellow-light),var(--pink-light));border-radius:20px;border:3px dashed var(--yellow);}
+.fill-display{font-family:'Amiri',serif;font-size:3rem;font-weight:900;text-align:center;direction:rtl;color:var(--purple);padding:18px 20px;background:linear-gradient(135deg,#FFF8E1,#FFE0F0);border-radius:20px;border:3px dashed var(--yellow);letter-spacing:3px;line-height:1.6;margin:10px 0;}
+.fill-underscore{color:#E53935;font-weight:900;font-size:3.2rem;}
+
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(300px);background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:13px 24px;border-radius:20px;font-weight:700;font-size:0.98rem;box-shadow:0 12px 35px rgba(255,111,181,0.5);transition:transform 0.4s;z-index:1000;max-width:90vw;text-align:center;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:200;}
+
+@media(max-width:600px){
+  .header-text h1{font-size:1.1rem;}
+  .header-logo{font-size:2.2rem;}
+  .chapter-card{padding:12px 8px;min-height:120px;}
+  .chapters-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;}
+  .q{font-size:1.1rem;padding-inline-start:34px;}
+  .choice{min-height:68px;padding:14px 16px;gap:12px;}
+  .choice-badge{width:34px;height:34px;font-size:0.95rem;}
+  .choice-text{font-size:1.25rem;}
+  .choice.big .choice-text{font-size:1.7rem;}
+  .mtile{min-height:60px;padding:10px 8px;}
+  .mtile.arabic{font-size:1.15rem;}
+  .mtile.emoji{font-size:2rem;}
+  .letter-display{font-size:3rem;}
+  .flower-choice{min-height:128px;}
+  .flower-text{font-size:0.92rem;max-width:62%;}
+  .cloud-content{font-size:0.98rem;}
+  .fill-display{font-size:2rem;letter-spacing:2px;}
+  .fill-underscore{font-size:2.2rem;}
+  .train-word{font-size:1.3rem;}
+  .train-input{width:46px;height:46px;font-size:1.5rem;}
+  .pie-circle{width:170px;height:170px;}
+  .pie-piece{width:38px;height:38px;font-size:1.5rem;}
+}
+@media(max-width:400px){
+  .choice-text{font-size:1.05rem;}
+  .choice.big .choice-text{font-size:1.5rem;}
+  .choice-badge{width:30px;height:30px;font-size:0.8rem;}
+  .flower-text{font-size:0.85rem;}
+  .pie-circle{width:150px;height:150px;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+
+<div class="bg-decor" aria-hidden="true">
+  <span class="uni">📓</span><span class="uni">🌈</span><span class="uni">⭐</span><span class="uni">✏️</span><span class="uni">🌸</span>
+  <span class="star" style="top:15%;left:20%;">⭐</span>
+  <span class="star" style="top:35%;right:25%;animation-delay:1s;">✨</span>
+  <span class="star" style="top:60%;left:15%;animation-delay:2s;">🌟</span>
+</div>
+
+<div id="saveStatus" class="save-status hidden" role="status" aria-live="polite"></div>
+
+<header>
+  <div class="header-content">
+    <div class="header-logo" aria-hidden="true">📓</div>
+    <div class="header-text">
+      <h1>دفتري — النسخة المُصلَّحة</h1>
+      <p>✍️ اللغة العربية والتربية الإسلامية • السنة الأولى ابتدائي</p>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-target="home" role="tab" aria-selected="true">🏠 الرئيسية</button>
+  <button class="tab" data-target="letters" role="tab" aria-selected="false">🔤 الحروف</button>
+  <button class="tab" data-target="parent" role="tab" aria-selected="false">👨‍👩‍👧 الأهل</button>
+</nav>
+
+<div class="container">
+  <section id="home" class="section active" role="tabpanel">
+    <div class="hero">
+      <div style="font-size:2.2rem;letter-spacing:6px;margin-bottom:8px;" aria-hidden="true">🌈📓⭐📓🌈</div>
+      <h2>🌟 مرحباً بك في دفتري! 🌟</h2>
+      <p>هنا نتعلم بأشكال مُستوحاة من دفترك المدرسي! زهور 🌸، سحابات ☁️، قطارات 🚂، ودوائر مقطّعة 🥧.</p>
+      <div class="overall-progress" id="overallProgress"></div>
+    </div>
+    <div class="card">
+      <h2><span class="icon">📚</span> المحاور الثمانية</h2>
+      <p style="margin-bottom:10px;color:var(--text-soft);">اضغط على أي محور لتبدأ أنشطته:</p>
+      <div class="chapters-grid" id="chaptersGrid"></div>
+    </div>
+  </section>
+  <section id="letters" class="section" role="tabpanel">
+    <div class="card">
+      <h2><span class="icon">🔤</span> الحروف الهجائية</h2>
+      <div class="info-banner">👆 اضغط على أي حرف لتسمعه ثم تتدرّب على كتابته</div>
+      <div id="lettersGrid"></div>
+    </div>
+  </section>
+  <section id="parent" class="section" role="tabpanel">
+    <div class="card">
+      <h2><span class="icon">👨‍👩‍👧</span> ركن الأهل</h2>
+      <div id="parentContent"></div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas id="confetti" class="hidden" aria-hidden="true"></canvas>
+
+<div id="unitOverlay" class="unit-overlay hidden" role="dialog" aria-modal="true">
+  <div class="unit-topbar" id="unitTopbar">
+    <button class="iconbtn" onclick="closeUnit()" aria-label="إغلاق">✕</button>
+    <div class="ttl" id="unitTitle">المحور</div>
+    <span class="stars-pill" id="unitStars">⭐ 0</span>
+  </div>
+  <div class="unit-progress-wrap"><div class="progress-bar"><div class="progress-fill" id="unitProgress" style="width:0%"></div></div></div>
+  <div class="unit-meta"><span id="unitIdx">1 / 1</span><span id="unitPage"></span></div>
+  <div class="unit-body" id="unitBody">
+    <div class="question-card">
+      <span class="q-badge">؟</span>
+      <p class="q" id="unitQuestion"></p>
+      <div id="unitVis"></div>
+    </div>
+    <div id="unitBox"></div>
+    <div class="fb hidden" id="unitFb"></div>
+  </div>
+  <div class="unit-bottom" id="unitBottom"></div>
+  <div id="unitResultView" class="hidden"></div>
+</div>
+
+<script>
+'use strict';
+
+/* ============================================================
+   DATA — كامل (نفس النسخة السابقة، لم يتغير)
+   ============================================================ */
+const DATA = {
+  version: 4,
+  units: [
+    {title:"المحور 1: عائلي", icon:"👨‍👩‍👧‍👦", field:"family", qs:[
+      {p:5, t:"أَلَوِّنُ الزُّهْرَةَ الَّتِي تُمَثِّلُ عَائِلَةَ أَحْمَد", type:"flower",
+       items:[{h:"أَبِي",k:1},{h:"مُهَرِّج",k:0},{h:"خَدِيجَة",k:1},{h:"أُمِّي",k:1},{h:"طَبِيبَة",k:0},{h:"أَحْمَد",k:1}],
+       id:"u1_01", hint:"🌸 اختر أفراد عائلة أحمد فقط.",
+       explain:"عائلة أحمد: أَبِي، أُمِّي، خَدِيجَة، أَحْمَد."},
+      {p:7, t:"صِلْ كَلَّ اسْمٍ بِصُورَتِهِ المُنَاسِبَة", type:"match",
+       pairs:[["أَحْمَد","👦"],["خَدِيجَة","👧"],["أَبِي","👨"],["أُمِّي","👩"]],
+       id:"u1_02", hint:"💡 اربط كل اسم بصاحبه.", explain:"أَحْمَد=👦، خَدِيجَة=👧، أَبِي=👨، أُمِّي=👩."},
+      {p:11, t:"اِخْتَرْ الصُّورَةَ الصَّحِيحَةَ لِكَلِمَةِ «أُمِّي»", type:"mc",
+       o:["👩","👨","👦","👧"], a:0, big:true, id:"u1_03", hint:"👩 أُمِّي.", explain:"أُمِّي امرأة."},
+      {p:11, t:"اِخْتَرْ الصُّورَةَ الصَّحِيحَةَ لِكَلِمَةِ «أَبِي»", type:"mc",
+       o:["👨","👩","👴","👦"], a:0, big:true, id:"u1_04", hint:"👨 أَبِي.", explain:"أَبِي رجل."},
+      {p:13, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ المِيم", type:"tap", word:"م",
+       items:[{h:"مُحَفَّظَة",k:1},{h:"سَمَاء",k:0},{h:"مُعَلِّمَة",k:1},{h:"كُرَّاس",k:0},{h:"عَلَم",k:1},{h:"مُحَمَّد",k:1}],
+       id:"u1_05", hint:"🔍 الميم.", explain:"مُحَفَّظَة، مُعَلِّمَة، عَلَم، مُحَمَّد."},
+      {p:18, t:"أَكْمِلْ الحَرْفَ النَّاقِص", type:"fillWord", display:"شَجَ__ة", answer:"ر",
+       id:"u1_06", hint:"🌳 شَجَرَة", explain:"الحرف: (ر)."},
+      {p:16, t:"تَتَبَّعْ حَرْفَ المِيمِ بِإِصْبَعِك", type:"trace", letter:"م", id:"u1_07"},
+      {p:16, t:"تَتَبَّعْ حَرْفَ البَاءِ بِإِصْبَعِك", type:"trace", letter:"ب", id:"u1_08"}
+    ]},
+    {title:"المحور 2: المدرسة", icon:"🏫", field:"school", qs:[
+      {p:35, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ النُّون", type:"tap", word:"ن",
+       items:[{h:"تِلْمِيذ",k:0},{h:"بِنْت",k:1},{h:"شَجَرَة",k:0},{h:"خِزَانَة",k:1},{h:"نَجْمَة",k:1}],
+       id:"u2_01", hint:"🔍 النون.", explain:"بِنْت، خِزَانَة، نَجْمَة."},
+      {p:35, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الرَّاء", type:"tap", word:"ر",
+       items:[{h:"طَرِيق",k:1},{h:"كِتَاب",k:0},{h:"دَرَّاجَة",k:1},{h:"جَمَل",k:0},{h:"رَسُول",k:1}],
+       id:"u2_02", hint:"🔍 الراء.", explain:"طَرِيق، دَرَّاجَة، رَسُول."},
+      {p:28, t:"مَا الحَرْفُ الأَوَّلُ فِي «مُعَلِّمَة»؟", type:"mc",
+       o:["م","ع","ل","ة"], a:0, id:"u2_03", hint:"🔎 أول صوت.", explain:"(م)."},
+      {p:29, t:"أَكْمِلْ الحَرْفَ النَّاقِصَ فِي القِطَار", type:"train",
+       rows:[{display:"مَكْتَ__ٌ", answer:"ب"},{display:"__َلَمٌ", answer:"ق"}],
+       id:"u2_04", hint:"🚂 الحرف.", explain:"مَكْتَب، قَلَم."},
+      {p:19, t:"اِسْتَظْهِرْ سُورَةَ النَّاسِ (114)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • قُلْ أَعُوذُ بِرَبِّ النَّاسِ • مَلِكِ النَّاسِ • إِلَهِ النَّاسِ • مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ • الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ • مِنَ الْجِنَّةِ وَالنَّاسِ",
+       num:114, id:"u2_05"},
+      {p:36, t:"رَتِّبْ حُرُوفَ الكَلِمَة", type:"pie",
+       letters:["م","ك","ت","ب"], answer:"مكتب",
+       id:"u2_06", hint:"🥧 اضغط بالترتيب.", explain:"م ← ك ← ت ← ب."},
+      {p:36, t:"تَتَبَّعْ حَرْفَ النُّونِ بِإِصْبَعِك", type:"trace", letter:"ن", id:"u2_07"},
+      {p:36, t:"تَتَبَّعْ حَرْفَ الدَّالِ بِإِصْبَعِك", type:"trace", letter:"د", id:"u2_08"}
+    ]},
+    {title:"المحور 3: الحي والقرية", icon:"🏘️", field:"village", qs:[
+      {p:44, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ العَيْن", type:"tap", word:"ع",
+       items:[{h:"قَطِيع",k:1},{h:"نُور",k:0},{h:"بَعِير",k:1},{h:"كِتَاب",k:0},{h:"نَعْجَة",k:1}],
+       id:"u3_01", hint:"🔍 العين.", explain:"قَطِيع، بَعِير، نَعْجَة."},
+      {p:45, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الهَاء", type:"tap", word:"هـ",
+       items:[{h:"مَهْر",k:1},{h:"قَمَر",k:0},{h:"هُدْهُد",k:1},{h:"هِلَال",k:1},{h:"كِتَاب",k:0}],
+       id:"u3_02", hint:"🔍 الهاء.", explain:"مَهْر، هُدْهُد، هِلَال."},
+      {p:49, t:"صِلْ الحَرْفَ بِالصُّورَة", type:"match",
+       pairs:[["ج","🐊 تِمْسَاح"],["ح","🕊️ حَمَامَة"],["ع","👁️ عَيْن"],["هـ","🌙 هِلَال"]],
+       id:"u3_03", hint:"💡 اربط.", explain:"كل حرف مع صورته."},
+      {p:9, t:"أَلَوِّنُ الأَزْهَارَ الَّتِي تُمَثِّلُ مَنْزِلَ أَحْمَد", type:"flower",
+       items:[{h:"غُرْفَة الجُلُوس",k:1},{h:"المَدْرَسَة",k:0},{h:"المَطْبَخ",k:1},{h:"المَلْعَب",k:0},{h:"غُرْفَة النُّوم",k:1},{h:"الحَمَّام",k:1}],
+       id:"u3_04", hint:"🏠 المنزل.", explain:"غُرْفَة الجُلُوس، المَطْبَخ، غُرْفَة النُّوم، الحَمَّام."},
+      {p:27, t:"ضَعْ كُلَّ كَلِمَةٍ فِي بَيْتِهَا", type:"sort",
+       houses:[
+         {label:"م", accepts:["مِمْحَاة","مَكْتَب","مُعَلِّمَة"]},
+         {label:"س", accepts:["سَاعَة","سَمَاء","سَيَّارَة"]},
+         {label:"ب", accepts:["بَاب","بِلَال","بِنْت"]}
+       ],
+       pool:["مِمْحَاة","سَاعَة","بَاب","مَكْتَب","سَمَاء","بِلَال","مُعَلِّمَة","سَيَّارَة","بِنْت"],
+       id:"u3_05", hint:"🏠 ضع كل كلمة في البيت المناسب.", explain:"كل كلمة في بيت حرفها الأول."},
+      {p:22, t:"أَكْمِلْ الحَرْفَ النَّاقِص", type:"fillWord", display:"__َمَل", answer:"ج",
+       id:"u3_06", hint:"🐪 جَمَل", explain:"الحرف: (ج)."},
+      {p:51, t:"تَتَبَّعْ حَرْفَ العَيْنِ بِإِصْبَعِك", type:"trace", letter:"ع", id:"u3_07"},
+      {p:51, t:"تَتَبَّعْ حَرْفَ الجِيمِ بِإِصْبَعِك", type:"trace", letter:"ج", id:"u3_08"}
+    ]},
+    {title:"المحور 4: الرياضة والتسلية", icon:"⚽", field:"sport", qs:[
+      {p:60, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الصَّاد", type:"tap", word:"ص",
+       items:[{h:"صُفُوف",k:1},{h:"كِتَاب",k:0},{h:"قَصَص",k:1},{h:"عَصِير",k:1},{h:"مَكْتَب",k:0}],
+       id:"u4_01", hint:"🔍 الصاد.", explain:"صُفُوف، قَصَص، عَصِير."},
+      {p:63, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ القَاف", type:"tap", word:"ق",
+       items:[{h:"قَلَم",k:1},{h:"كِتَاب",k:0},{h:"قَمَر",k:1},{h:"بَقَرَة",k:1}],
+       id:"u4_02", hint:"🔍 القاف.", explain:"قَلَم، قَمَر، بَقَرَة."},
+      {p:67, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الطَّاء", type:"tap", word:"ط",
+       items:[{h:"طَائِرَة",k:1},{h:"طَمَاطِم",k:1},{h:"بَطَل",k:1},{h:"خَيْط",k:1},{h:"كِتَاب",k:0}],
+       id:"u4_03", hint:"🔍 الطاء.", explain:"كل الكلمات فيها (ط) ما عدا كِتَاب."},
+      {p:68, t:"صِلْ الرِّيَاضَةَ بِالمَكَان", type:"match",
+       pairs:[["⚽ كُرَة القَدَم","🏟️ مَلْعَب"],["🏀 كُرَة السَّلَّة","🏀 سَلَّة"],["🏊 السِّبَاحَة","🏊 حَوْض"],["🥊 المُلاَكَمَة","🥊 حَلْبَة"]],
+       id:"u4_04", hint:"💡 اربط.", explain:"كل رياضة بمكانها."},
+      {p:36, t:"أَلَوِّنُ الأَزْهَارَ الَّتِي تُمَثِّلُ الرِّيَاضَات", type:"flower",
+       items:[{h:"كُرَة القَدَم",k:1},{h:"الطَّبْخ",k:0},{h:"السِّبَاحَة",k:1},{h:"النَّوْم",k:0},{h:"كُرَة السَّلَّة",k:1},{h:"الجَرْي",k:1}],
+       id:"u4_05", hint:"⚽ الرياضات.", explain:"كرة القدم، السباحة، كرة السلة، الجري."},
+      {p:28, t:"اِسْتَظْهِرْ سُورَةَ الإِخْلَاصِ (112)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • قُلْ هُوَ اللَّهُ أَحَدٌ • اللَّهُ الصَّمَدُ • لَمْ يَلِدْ وَلَمْ يُولَدْ • وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+       num:112, id:"u4_06"},
+      {p:34, t:"ضَعْ كُلَّ كَلِمَةٍ فِي الجَدْوَلِ المُنَاسِب", type:"sort",
+       houses:[
+         {label:"ق", accepts:["قَمَر","مَقَاعِد","بَقَرَة","فَرِيق"]},
+         {label:"ك", accepts:["كُرَة","كَعْكَة","كِتَاب","حَكَم"]}
+       ],
+       pool:["قَمَر","كُرَة","مَقَاعِد","كَعْكَة","بَقَرَة","كِتَاب","فَرِيق","حَكَم"],
+       id:"u4_07", hint:"📊 ق/ك.", explain:"تصنيف."},
+      {p:36, t:"رَتِّبْ حُرُوفَ الكَلِمَة", type:"pie",
+       letters:["ط","ف","ر"], answer:"طفر",
+       id:"u4_08", hint:"🥧 اضغط بالترتيب.", explain:"ط ← ف ← ر."},
+      {p:63, t:"تَتَبَّعْ حَرْفَ القَافِ بِإِصْبَعِك", type:"trace", letter:"ق", id:"u4_09"},
+      {p:63, t:"تَتَبَّعْ حَرْفَ الطَّاءِ بِإِصْبَعِك", type:"trace", letter:"ط", id:"u4_10"}
+    ]},
+    {title:"المحور 5: البيئة والطبيعة", icon:"🌳", field:"nature", qs:[
+      {p:74, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الثَّاء", type:"tap", word:"ث",
+       items:[{h:"ثِيَاب",k:1},{h:"نُور",k:0},{h:"ثَلَاجَة",k:1},{h:"ثَمَر",k:1}],
+       id:"u5_01", hint:"🔍 الثاء.", explain:"ثِيَاب، ثَلَاجَة، ثَمَر."},
+      {p:74, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الذَّال", type:"tap", word:"ذ",
+       items:[{h:"ذِئْب",k:1},{h:"نُور",k:0},{h:"أُذُن",k:1},{h:"ذُبَاب",k:1}],
+       id:"u5_02", hint:"🔍 الذال.", explain:"ذِئْب، أُذُن، ذُبَاب."},
+      {p:74, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الزَّاي", type:"tap", word:"ز",
+       items:[{h:"زَهْرَة",k:1},{h:"كِتَاب",k:0},{h:"مَزْرَعَة",k:1},{h:"زَيْتُون",k:1}],
+       id:"u5_03", hint:"🔍 الزاي.", explain:"زَهْرَة، مَزْرَعَة، زَيْتُون."},
+      {p:74, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الغَيْن", type:"tap", word:"غ",
+       items:[{h:"غُرَاب",k:1},{h:"كِتَاب",k:0},{h:"غَابَة",k:1},{h:"غَنَمَة",k:1}],
+       id:"u5_04", hint:"🔍 الغين.", explain:"غُرَاب، غَابَة، غَنَمَة."},
+      {p:44, t:"أَكْمِلْ الحَرْفَ النَّاقِصَ فِي القِطَار", type:"train",
+       rows:[{display:"نَخْ__َة", answer:"ل"},{display:"غَا__َة", answer:"ب"}],
+       id:"u5_05", hint:"🚂 الحرف.", explain:"نَخْلَة، غَابَة."},
+      {p:46, t:"اِسْتَظْهِرْ سُورَةَ الفَلَقِ (113)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ • مِن شَرِّ مَا خَلَقَ • وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ • وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ • وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+       num:113, id:"u5_06"},
+      {p:44, t:"رَتِّبْ خُطُوَاتِ غَرْسِ الشَّجَرَة", type:"order",
+       items:["تَنْظِيفُ المَكَان","حَفْرُ التُّرْبَة","غَرْسُ الشَّجِيرَة","سَقْيُ الشَّجِيرَة","مُرَاقَبَةُ النُّمُوّ"],
+       id:"u5_07", hint:"🌱 الترتيب المنطقي.", explain:"تنظيف ← حفر ← غرس ← سقي ← مراقبة."},
+      {p:78, t:"تَتَبَّعْ حَرْفَ الزَّايِ بِإِصْبَعِك", type:"trace", letter:"ز", id:"u5_08"},
+      {p:78, t:"تَتَبَّعْ حَرْفَ الغَيْنِ بِإِصْبَعِك", type:"trace", letter:"غ", id:"u5_09"},
+      {p:78, t:"تَتَبَّعْ حَرْفَ الذَّالِ بِإِصْبَعِك", type:"trace", letter:"ذ", id:"u5_10"}
+    ]},
+    {title:"المحور 6: التغذية والصحة", icon:"🍎", field:"health", qs:[
+      {p:88, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الفَاء", type:"tap", word:"ف",
+       items:[{h:"فَحْص",k:1},{h:"كِتَاب",k:0},{h:"فُرْشَاة",k:1},{h:"فَاكِهَة",k:1}],
+       id:"u6_01", hint:"🔍 الفاء.", explain:"فَحْص، فُرْشَاة، فَاكِهَة."},
+      {p:89, t:"اِخْتَرْ كُلَّ الكَلِمَاتِ الَّتِي تَحْتَوِي عَلَى حَرْفِ الثَّاء", type:"tap", word:"ث",
+       items:[{h:"ثَلَاجَة",k:1},{h:"كِتَاب",k:0},{h:"ثَلَاثُونَ",k:1},{h:"ثِيَاب",k:1}],
+       id:"u6_02", hint:"🔍 الثاء.", explain:"ثَلَاجَة، ثَلَاثُونَ، ثِيَاب."},
+      {p:88, t:"اخْتَرْ الصُّورَةَ الصَّحِيحَةَ لِكَلِمَةِ «تُفَّاحَة»", type:"mc",
+       o:["🍎","🍌","🍇","🍊"], a:0, big:true, id:"u6_03", hint:"🍎 تفاحة.", explain:"تُفَّاحَة = 🍎"},
+      {p:91, t:"صِلْ الفَاكِهَةَ بِاسْمِهَا", type:"match",
+       pairs:[["🍎","تُفَّاحَة"],["🍌","مَوْز"],["🍋","لَيْمُون"],["🍊","بُرْتُقَال"]],
+       id:"u6_04", hint:"💡 اربط.", explain:"كل فاكهة باسمها."},
+      {p:48, t:"أَكْمِلْ الحَرْفَ النَّاقِص", type:"train",
+       rows:[{display:"ثَوْ__ٌ", answer:"ب"},{display:"ثَلَا__َة", answer:"ث"}],
+       id:"u6_05", hint:"🚂 الحرف.", explain:"ثَوْب، ثَلَاثَة."},
+      {p:74, t:"اِسْتَظْهِرْ سُورَةَ النَّصْرِ (110)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ • وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا • فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا",
+       num:110, id:"u6_06"},
+      {p:50, t:"رَتِّبْ كَلِمَاتِ الجُمْلَة", type:"order",
+       items:["الأُمُّ","حَضَّرَتْ","مَأْكُولَاتٍ","مِنْ","المَطْبَخ"],
+       id:"u6_07", hint:"🍽️ الفاعل أولاً.", explain:"الأُمُّ حَضَّرَتْ مَأْكُولَاتٍ مِنَ المَطْبَخِ."},
+      {p:87, t:"تَتَبَّعْ حَرْفَ الفَاءِ بِإِصْبَعِك", type:"trace", letter:"ف", id:"u6_08"},
+      {p:87, t:"تَتَبَّعْ حَرْفَ الثَّاءِ بِإِصْبَعِك", type:"trace", letter:"ث", id:"u6_09"},
+      {p:87, t:"تَتَبَّعْ حَرْفَ اليَاءِ بِإِصْبَعِك", type:"trace", letter:"ي", id:"u6_10"}
+    ]},
+    {title:"المحور 7: التواصل", icon:"💻", field:"communication", qs:[
+      {p:98, t:"اِخْتَرْ الكَلِمَاتِ الَّتِي تَبْدَأُ بِـ «ال» القَمَرِيَّة", type:"tap", word:"ال",
+       items:[{h:"الْقَمَر",k:1},{h:"الشَّمْس",k:0},{h:"الْكِتَاب",k:1},{h:"الطَّائِرَة",k:0},{h:"الْبَاب",k:1}],
+       id:"u7_01", hint:"🌙 القَمَرِيَّة.", explain:"الْقَمَر، الْكِتَاب، الْبَاب."},
+      {p:98, t:"اِخْتَرْ الكَلِمَاتِ الَّتِي تَبْدَأُ بِـ «ال» الشَّمْسِيَّة", type:"tap", word:"ال",
+       items:[{h:"الشَّمْس",k:1},{h:"الْقَمَر",k:0},{h:"الطَّائِرَة",k:1},{h:"الْكِتَاب",k:0},{h:"النَّجْم",k:1}],
+       id:"u7_02", hint:"☀️ الشَّمْسِيَّة.", explain:"الشَّمْس، الطَّائِرَة، النَّجْم."},
+      {p:97, t:"مَا «ال» فِي «الْحَاسُوب»؟", type:"mc",
+       o:["قَمَرِيَّة","شَمْسِيَّة"], a:0, word:"الْحَاسُوب", id:"u7_03",
+       hint:"🌙 اللَّام واضحة.", explain:"قَمَرِيَّة."},
+      {p:102, t:"صِلْ الجِهَازَ بِصُورَتِه", type:"match",
+       pairs:[["حَاسُوب","💻"],["هَاتِف","📱"],["فَأْرَة","🖱️"],["تِلْفَاز","📺"]],
+       id:"u7_04", hint:"💡 اربط.", explain:"كل جهاز بصورته."},
+      {p:62, t:"صَنِّفْ «ال» قَمَرِيَّة أَو شَمْسِيَّة", type:"sort",
+       houses:[
+         {label:"🌙 قَمَرِيَّة", accepts:["الْقَمَر","الْكِتَاب","الْبَاب","الْحَاسُوب"]},
+         {label:"☀️ شَمْسِيَّة", accepts:["الشَّمْس","الطَّائِرَة","النَّجْم","الدَّرْجَة"]}
+       ],
+       pool:["الْقَمَر","الشَّمْس","الْكِتَاب","الطَّائِرَة","الْبَاب","النَّجْم","الْحَاسُوب","الدَّرْجَة"],
+       id:"u7_05", hint:"🌙☀️ التصنيف.", explain:"التصنيف حسب النطق."},
+      {p:107, t:"اِسْتَظْهِرْ سُورَةَ الكَوْثَرِ (108)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ • فَصَلِّ لِرَبِّكَ وَانْحَرْ • إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+       num:108, id:"u7_06"},
+      {p:44, t:"رَتِّبْ حُرُوفَ الكَلِمَة", type:"pie",
+       letters:["ح","ا","س","ب"], answer:"حاسب",
+       id:"u7_07", hint:"🥧 اضغط بالترتيب.", explain:"ح ← ا ← س ← ب."},
+      {p:101, t:"تَتَبَّعْ حَرْفَ الحَاءِ بِإِصْبَعِك", type:"trace", letter:"ح", id:"u7_08"},
+      {p:101, t:"تَتَبَّعْ حَرْفَ الكَافِ بِإِصْبَعِك", type:"trace", letter:"ك", id:"u7_09"},
+      {p:101, t:"تَتَبَّعْ حَرْفَ الهَاءِ بِإِصْبَعِك", type:"trace", letter:"هـ", id:"u7_10"},
+      {p:66, t:"رَتِّبِ الصَّلَوَاتِ الخَمْس", type:"order",
+       items:["الصُّبْح","الظُّهْر","العَصْر","المَغْرِب","العِشَاء"],
+       id:"u7_11", hint:"🕌 ابدأ بالفجر.", explain:"الصُّبْح ← الظُّهْر ← العَصْر ← المَغْرِب ← العِشَاء."}
+    ]},
+    {title:"المحور 8: المؤثرات الحضارية", icon:"🕌", field:"civilization", qs:[
+      {p:111, t:"مَا الحَرْفُ الأَوَّلُ فِي «عِيد»؟", type:"mc",
+       o:["ع","ي","د","ـ"], a:0, id:"u8_01", hint:"🔎 أول صوت.", explain:"(ع)."},
+      {p:111, t:"اِخْتَرْ الصُّورَةَ الصَّحِيحَةَ لِكَلِمَةِ «هِلَال»", type:"mc",
+       o:["🌙","☀️","⭐","🌕"], a:0, big:true, id:"u8_02", hint:"🌙 هلال.", explain:"هِلَال = 🌙"},
+      {p:112, t:"مَاذَا نَقُولُ قَبْلَ الأَكْلِ؟", type:"mc",
+       o:["بِسْمِ اللَّه","الْحَمْدُ لِلَّه","سُبْحَانَ اللَّه","اللَّهُ أَكْبَر"], a:0, id:"u8_03",
+       hint:"🍽️ نبدأ باسم الله.", explain:"بِسْمِ اللَّه."},
+      {p:112, t:"مَاذَا نَقُولُ بَعْدَ الأَكْلِ؟", type:"mc",
+       o:["الْحَمْدُ لِلَّه","بِسْمِ اللَّه","سُبْحَانَ اللَّه","لَا إِلَهَ إِلَّا اللَّه"], a:0, id:"u8_04",
+       hint:"🙏 نشكر الله.", explain:"الْحَمْدُ لِلَّه."},
+      {p:119, t:"فِي أَيِّ يَوْمٍ نَحْتَفِلُ بِعِيدِ الاسْتِقْلَالِ؟", type:"mc",
+       o:["5 جُوِيْلِيَة","1 مَاي","1 نُوفَمْبَر","19 مَارْس"], a:0, id:"u8_05",
+       hint:"🇩🇿 1962.", explain:"5 جُوِيْلِيَة."},
+      {p:114, t:"صِلْ العَمَلَ بِالذِّكْرِ", type:"match",
+       pairs:[["🍽️ قَبْلَ الأَكْل","بِسْمِ اللَّه"],["🙏 بَعْدَ الأَكْل","الْحَمْدُ لِلَّه"],["🤧 عِنْدَ العَطْس","الْحَمْدُ لِلَّه"],["🚪 قَبْلَ الوُضُوء","بِسْمِ اللَّه"]],
+       id:"u8_06", hint:"💡 اربط.", explain:"كل عمل بذكره."},
+      {p:114, t:"أَلَوِّنُ الأَزْهَارَ الَّتِي تُمَثِّلُ آدَابَ الأَكْل", type:"flower",
+       items:[{h:"بِسْمِ اللَّه",k:1},{h:"العَجَلَة",k:0},{h:"بِيَمِينِي",k:1},{h:"الكَلَام",k:0},{h:"الحَمْدُ",k:1},{h:"مِمَّا يَلِينِي",k:1}],
+       id:"u8_07", hint:"🍽️ الآداب.", explain:"بِسْمِ اللَّه، بِيَمِينِي، الحَمْدُ، مِمَّا يَلِينِي."},
+      {p:124, t:"اِسْتَظْهِرْ سُورَةَ الكَوْثَرِ (108)", type:"cloud",
+       content:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ • إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ • فَصَلِّ لِرَبِّكَ وَانْحَرْ • إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+       num:108, id:"u8_08"},
+      {p:122, t:"رَتِّبْ حُرُوفَ الكَلِمَة", type:"pie",
+       letters:["ع","ي","د"], answer:"عيد",
+       id:"u8_09", hint:"🥧 اضغط بالترتيب.", explain:"ع ← ي ← د."},
+      {p:121, t:"تَتَبَّعْ حَرْفَ العَيْنِ بِإِصْبَعِك", type:"trace", letter:"ع", id:"u8_10"},
+      {p:121, t:"تَتَبَّعْ حَرْفَ الهَاءِ بِإِصْبَعِك", type:"trace", letter:"هـ", id:"u8_11"}
+    ]}
+  ]
+};
+
+const FIELDCOL = {
+  family:['#EC407A','#F8BBD0'], school:['#5C6BC0','#C5CAE9'],
+  village:['#26A69A','#B2DFDB'], sport:['#FB8C00','#FFE0B2'],
+  nature:['#43A047','#C8E6C9'], health:['#E53935','#FFCDD2'],
+  communication:['#8E24AA','#E1BEE7'], civilization:['#00897B','#B2DFDB']
+};
+
+const ARABIC_LETTERS = [
+  {letter:"ا",name:"أَلِف"},{letter:"ب",name:"بَاء"},{letter:"ت",name:"تَاء"},{letter:"ث",name:"ثَاء"},{letter:"ج",name:"جِيم"},
+  {letter:"ح",name:"حَاء"},{letter:"خ",name:"خَاء"},{letter:"د",name:"دَال"},{letter:"ذ",name:"ذَال"},{letter:"ر",name:"رَاء"},
+  {letter:"ز",name:"زَاي"},{letter:"س",name:"سِين"},{letter:"ش",name:"شِين"},{letter:"ص",name:"صَاد"},{letter:"ض",name:"ضَاد"},
+  {letter:"ط",name:"طَاء"},{letter:"ظ",name:"ظَاء"},{letter:"ع",name:"عَيْن"},{letter:"غ",name:"غَيْن"},{letter:"ف",name:"فَاء"},
+  {letter:"ق",name:"قَاف"},{letter:"ك",name:"كَاف"},{letter:"ل",name:"لَام"},{letter:"م",name:"مِيم"},{letter:"ن",name:"نُون"},
+  {letter:"هـ",name:"هَاء"},{letter:"و",name:"وَاو"},{letter:"ي",name:"يَاء"}
+];
+
+/* Utilities */
+function hashStr(s){ let x=7; for(let i=0;i<s.length;i++) x=(x*31+s.charCodeAt(i))>>>0; return x; }
+function seededShuffle(n,seed){ const idx=Array.from({length:n},(_,i)=>i); if(n<2) return idx; let s=(seed&0x7fffffff)+1; const nx=()=>(s=(s*1103515245+12345)&0x7fffffff); for(let i=n-1;i>0;i--){ const j=nx()%(i+1); [idx[i],idx[j]]=[idx[j],idx[i]]; } return idx; }
+function solutionText(q){
+  switch(q.type){
+    case 'mc': return q.o[q.a];
+    case 'trace': return `حرف ${q.letter}`;
+    case 'match': return q.pairs.map(p=>`${p[0]} = ${p[1]}`).join(' ، ');
+    case 'order': return q.items.join(' ← ');
+    case 'tap': return q.items.filter(i=>i.k===1).map(i=>i.h).join(' ، ');
+    case 'fillWord': return q.display.replace('__', q.answer);
+    case 'flower': return q.items.filter(i=>i.k===1).map(i=>i.h).join(' ، ');
+    case 'train': return q.rows.map(r=>r.display.replace('__', r.answer)).join(' ، ');
+    case 'cloud': return 'استظهر السورة';
+    case 'pie': return q.letters.join(' ← ');
+    case 'sort': return 'التصنيف حسب الحرف';
+  }
+  return '';
+}
+
+/* State */
+const KEY = 'daftari.v5';
+const BACKUP_KEY = 'daftari.v5.backup';
+const todayStr = (d=new Date()) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const DEFAULTS = () => ({name:'', stars:0, done:{}, mistakes:{}, best:{}, streak:0, lastDay:'', daily:{day:'',stars:0}, version:5});
+let S = DEFAULTS();
+let saveStatusTimer;
+function setSaveStatus(state,msg){
+  const el = document.getElementById('saveStatus'); if(!el) return;
+  el.classList.remove('hidden','ok','err','fade');
+  el.textContent = msg || (state==='ok'?'✅ تم الحفظ':'⚠️ فشل الحفظ');
+  el.classList.add(state==='ok'?'ok':'err');
+  clearTimeout(saveStatusTimer);
+  saveStatusTimer = setTimeout(()=>el.classList.add('fade'), 2000);
+}
+function loadState(){
+  try{ const raw=localStorage.getItem(KEY); if(raw){ S=mergeState(JSON.parse(raw)); return {ok:true}; } }
+  catch(e){ try{ const b=localStorage.getItem(BACKUP_KEY); if(b){ S=mergeState(JSON.parse(b)); return {ok:true}; } }catch(e2){} return {ok:false}; }
+  return {ok:true};
+}
+function mergeState(o){
+  const d = DEFAULTS(); if(!o||typeof o!=='object') return d;
+  d.name = typeof o.name==='string' ? o.name.slice(0,20) : '';
+  d.stars = Number.isFinite(+o.stars) ? Math.max(0,Math.floor(+o.stars)) : 0;
+  d.streak = Number.isFinite(+o.streak) ? Math.max(0,Math.floor(+o.streak)) : 0;
+  d.lastDay = typeof o.lastDay==='string' ? o.lastDay : '';
+  for(const k of ['done','mistakes']) if(o[k]&&typeof o[k]==='object') for(const id in o[k]) if(o[k][id]) d[k][id]=1;
+  if(o.best&&typeof o.best==='object') for(const k in o.best) d.best[k]=+o.best[k]||0;
+  if(o.daily&&typeof o.daily==='object') d.daily = {day:String(o.daily.day||''),stars:+o.daily.stars||0};
+  return d;
+}
+function saveState(){
+  try{ const prev=localStorage.getItem(KEY); if(prev) localStorage.setItem(BACKUP_KEY, prev); localStorage.setItem(KEY, JSON.stringify(S)); setSaveStatus('ok'); return true; }
+  catch(e){ setSaveStatus('err'); return false; }
+}
+function recordAttempt(id, outcome){
+  const day = todayStr();
+  if(S.daily.day!==day) S.daily={day,stars:0};
+  if(outcome==='first-try'||outcome==='eventual'){ S.done[id]=1; delete S.mistakes[id]; }
+  else if(outcome==='revealed'||outcome==='skipped'){ S.mistakes[id]=1; }
+  if(S.lastDay!==day){ const y=new Date(); y.setDate(y.getDate()-1); S.streak = S.lastDay===todayStr(y) ? S.streak+1 : 1; S.lastDay=day; }
+  saveState();
+}
+function addStars(n){ S.stars+=n; S.daily.stars+=n; saveState(); }
+
+/* Voice */
+const Voice = {
+  voice:null, checked:false,
+  pick(){ try{ const vs=speechSynthesis.getVoices(); this.voice=vs.find(v=>/^ar/i.test(v.lang))||null; this.checked=true; }catch(e){ this.checked=true; } },
+  speak(text){
+    if(!('speechSynthesis' in window)) return;
+    const clean = String(text).replace(/[\u{1F300}-\u{1FAFF}]/gu,'').replace(/\s+/g,' ').trim();
+    if(!clean) return;
+    try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(clean); if(!this.checked) this.pick(); u.lang=this.voice?this.voice.lang:'ar-SA'; if(this.voice) u.voice=this.voice; u.rate=0.8; u.pitch=1.05; speechSynthesis.speak(u); }catch(e){}
+  },
+  stop(){ try{ speechSynthesis.cancel(); }catch(e){} }
+};
+try{ if('speechSynthesis' in window){ speechSynthesis.addEventListener('voiceschanged', ()=>Voice.pick()); Voice.pick(); } }catch(e){}
+
+/* SFX */
+const SFX = {
+  ctx:null,
+  init(){ if(!this.ctx){ try{ this.ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } },
+  play(type){
+    if(!this.ctx) this.init();
+    if(!this.ctx) return;
+    try{
+      const now = this.ctx.currentTime;
+      if(type === 'correct'){
+        [523.25, 659.25, 783.99].forEach((f,i)=>{
+          const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+          o.connect(g); g.connect(this.ctx.destination);
+          o.type = 'sine'; o.frequency.value = f;
+          g.gain.setValueAtTime(0, now + i*0.1);
+          g.gain.linearRampToValueAtTime(0.12, now + i*0.1 + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.001, now + i*0.1 + 0.3);
+          o.start(now + i*0.1); o.stop(now + i*0.1 + 0.35);
+        });
+      } else if(type === 'wrong'){
+        const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+        o.connect(g); g.connect(this.ctx.destination);
+        o.type = 'triangle'; o.frequency.value = 220;
+        g.gain.setValueAtTime(0.08, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        o.frequency.linearRampToValueAtTime(150, now + 0.25);
+        o.start(now); o.stop(now + 0.3);
+      } else if(type === 'click'){
+        const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+        o.connect(g); g.connect(this.ctx.destination);
+        o.type = 'sine'; o.frequency.value = 880;
+        g.gain.setValueAtTime(0.05, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        o.start(now); o.stop(now + 0.1);
+      }
+    }catch(e){}
+  }
+};
+
+/* Toast + Confetti */
+let toastTimeout;
+function showToast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimeout); toastTimeout=setTimeout(()=>t.classList.remove('show'), 2400);
+}
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv=document.getElementById('confetti'), cx=cv.getContext('2d');
+  cv.width=innerWidth; cv.height=innerHeight; cv.classList.remove('hidden');
+  const cols=['#FF6FB5','#9B59FF','#3DD9B0','#FFD93D','#5EC8FF','#FFA45B'];
+  const ps=Array.from({length:110},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*0.5,r:4+Math.random()*6,c:cols[Math.floor(Math.random()*cols.length)],vy:2+Math.random()*3.5,vx:-1.5+Math.random()*3,a:Math.random()*6}));
+  let f=0;
+  (function loop(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx+Math.sin((f+p.a*10)/15);p.a+=0.1;cx.fillStyle=p.c;cx.fillRect(p.x,p.y,p.r,p.r*1.6);});
+    if(++f<170) requestAnimationFrame(loop); else cv.classList.add('hidden');
+  })();
+}
+
+/* Session */
+const MAX_TRIES = 3, MAX_SKIPS = 3;
+class Session {
+  constructor({key, title, list, field='general'}){
+    Object.assign(this,{key,title,list,field,i:0,tries:0,firstTryCorrect:0,eventualCorrect:0,revealedCount:0,skippedCount:0,sstars:0,skips:0,locked:false,revealed:false,finished:false,last:null,fb:null,fbIsExplain:false,run:0});
+  }
+  get cur(){ return this.list[this.i]; }
+  get isLast(){ return this.i >= this.list.length - 1; }
+  get pct(){ const r = this.firstTryCorrect + this.eventualCorrect; return Math.floor(r*100/this.list.length); }
+  get rating(){ const p=this.pct; return p>=90?3:p>=60?2:p>=30?1:0; }
+  submit(ok){
+    if(this.locked||this.finished) return;
+    if(ok){
+      const earned = this.tries===0?3:this.tries===1?2:1;
+      if(this.tries===0) this.firstTryCorrect++; else this.eventualCorrect++;
+      this.sstars+=earned; this.locked=true; this.last=true;
+      this.fb = ['أحسنت! 🎉','ممتاز! 🌟','رائع! 👏','برافو! 🥳'][this.i%4];
+      this.fbIsExplain = false;
+      SFX.play('correct');
+      recordAttempt(this.cur.id, this.tries===0?'first-try':'eventual');
+      addStars(earned);
+    } else {
+      this.tries++; this.last=false;
+      SFX.play('wrong');
+      if(this.tries >= MAX_TRIES){
+        this.locked=true; this.revealed=true; this.revealedCount++;
+        this.fb = '💡 ' + (this.cur.explain || ('الحل: ' + solutionText(this.cur)));
+        this.fbIsExplain = true;
+        recordAttempt(this.cur.id,'revealed');
+      } else this.fb = 'حاول مرة أخرى 🌈 (' + (MAX_TRIES-this.tries) + ' متبقية)';
+    }
+  }
+  goTo(i){ Object.assign(this,{i,tries:0,locked:false,revealed:false,last:null,fb:null,fbIsExplain:false}); this.run++; }
+  next(){ if(this.finished||!this.locked) return; this.isLast ? this.finish() : this.goTo(this.i+1); }
+  skip(){ if(this.finished||this.locked||this.skips>=MAX_SKIPS) return; this.skips++; this.skippedCount++; recordAttempt(this.cur.id,'skipped'); this.isLast ? this.finish() : this.goTo(this.i+1); }
+  finish(){ this.finished=true; const best = S.best[this.key]; if(best===undefined || this.pct > best) S.best[this.key]=this.pct; saveState(); }
+}
+
+/* Widgets */
+const W = {};
+const LETTERS_A = ['أ','ب','ج','د','هـ','و'];
+
+function mkCheck(fn){
+  const b=document.createElement('button');
+  b.className='btn btn-primary';
+  b.style.cssText='width:100%;margin-top:14px;';
+  b.textContent='تحقق ✅';
+  b.onclick=fn;
+  return b;
+}
+function addHint(box, q){
+  if(!q.hint) return;
+  const btn=document.createElement('button');
+  btn.className='hintbtn';
+  btn.style.cssText='width:100%;justify-content:center;margin:8px 0;';
+  btn.innerHTML='💡 تلميح';
+  const hb=document.createElement('div');
+  hb.className='fb explain hidden';
+  hb.innerHTML=q.hint;
+  let shown=false;
+  btn.onclick=()=>{shown=!shown;hb.classList.toggle('hidden',!shown);btn.innerHTML=shown?'🙈 إخفاء':'💡 تلميح';if(shown) Voice.speak(q.hint);};
+  box.appendChild(btn); box.appendChild(hb);
+}
+
+W.mc = (box, q, api) => {
+  if(q.word){
+    const wd = document.createElement('div');
+    wd.className = 'word-display';
+    wd.textContent = q.word;
+    box.appendChild(wd);
+    const spk = document.createElement('button');
+    spk.className='btn btn-primary btn-sm';
+    spk.style.cssText='display:block;margin:0 auto 12px;';
+    spk.textContent='🔊 اسمع';
+    spk.onclick=()=>Voice.speak(q.word);
+    box.appendChild(spk);
+    setTimeout(()=>Voice.speak(q.word), 400);
+  }
+  addHint(box, q);
+  const list=document.createElement('div');
+  list.className='choices';
+  const btns=[];
+  q.o.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='choice'+(q.big?' big':'');
+    const badge=document.createElement('span');
+    badge.className='choice-badge';
+    badge.textContent=LETTERS_A[i]||String(i+1);
+    const text=document.createElement('span');
+    text.className='choice-text';
+    text.textContent=o;
+    b.appendChild(badge); b.appendChild(text);
+    b.onclick=()=>{
+      if(i===q.a){ b.classList.add('ok'); btns.forEach(x=>x.disabled=true); api.submit(true); }
+      else { b.classList.add('bad'); b.disabled=true; api.submit(false); }
+    };
+    btns.push(b); list.appendChild(b);
+  });
+  box.appendChild(list);
+  return { reveal(){ btns.forEach((b,i)=>{ b.disabled=true; b.classList.remove('bad'); if(i===q.a) b.classList.add('ok'); }); } };
+};
+
+W.tap = (box, q, api) => {
+  if(q.word){
+    const wd = document.createElement('div');
+    wd.className = 'word-display';
+    wd.textContent = `حرف: ${q.word}`;
+    box.appendChild(wd);
+  }
+  const sel=new Set();
+  const wrap=document.createElement('div');
+  wrap.className='tapwrap';
+  const els=[];
+  q.items.forEach((it,i)=>{
+    const el=document.createElement('button');
+    el.className='tapitem'+(it.h.length<=2?'':' word');
+    el.textContent=it.h;
+    el.setAttribute('aria-pressed','false');
+    el.onclick=()=>{
+      if(sel.has(i)) sel.delete(i); else sel.add(i);
+      el.classList.toggle('sel', sel.has(i));
+      el.setAttribute('aria-pressed', sel.has(i));
+      Voice.speak(it.h);
+    };
+    els.push(el); wrap.appendChild(el);
+  });
+  box.appendChild(wrap);
+  addHint(box, q);
+  box.appendChild(mkCheck(()=>{
+    if(!sel.size) return showToast('اضغط على الإجابة أولًا 👆');
+    const ok=q.items.every((it,i)=>sel.has(i)===(it.k===1));
+    if(!ok){ sel.clear(); els.forEach(e=>{e.classList.remove('sel');e.setAttribute('aria-pressed','false');}); }
+    api.submit(ok);
+    if(ok) els.forEach(e=>e.disabled=true);
+  }));
+  return { reveal(){ els.forEach((e,i)=>{ e.classList.remove('sel'); e.disabled=true; if(q.items[i].k===1) e.classList.add('right'); }); } };
+};
+
+/* ✨ FIXED: W.flower — لم يعد يستخدم els.push(b) داخل map */
+W.flower = (box, q, api) => {
+  const sel=new Set();
+  const grid=document.createElement('div');
+  grid.className='flower-grid';
+  const els = q.items.map((it,i)=>{
+    const b=document.createElement('button');
+    b.className='flower-choice';
+    b.setAttribute('aria-pressed','false');
+    b.innerHTML = `
+      <svg class="flower-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <ellipse class="leaf" cx="50" cy="88" rx="14" ry="6" transform="rotate(-25 50 88)"/>
+        <ellipse class="leaf" cx="50" cy="88" rx="14" ry="6" transform="rotate(25 50 88)"/>
+        <line x1="50" y1="82" x2="50" y2="96" stroke="#66BB6A" stroke-width="1.5"/>
+        <circle class="petal" cx="50" cy="20" r="16"/>
+        <circle class="petal" cx="78" cy="40" r="16"/>
+        <circle class="petal" cx="68" cy="74" r="16"/>
+        <circle class="petal" cx="32" cy="74" r="16"/>
+        <circle class="petal" cx="22" cy="40" r="16"/>
+        <circle class="center" cx="50" cy="48" r="20"/>
+      </svg>
+      <span class="flower-text">${it.h}</span>
+    `;
+    b.onclick=()=>{
+      if(sel.has(i)) sel.delete(i); else sel.add(i);
+      b.classList.toggle('sel', sel.has(i));
+      b.setAttribute('aria-pressed', sel.has(i));
+      Voice.speak(it.h.replace(/[^\u0600-\u06FF\s]/g,''));
+    };
+    grid.appendChild(b);
+    return b;
+  });
+  box.appendChild(grid);
+  addHint(box, q);
+  box.appendChild(mkCheck(()=>{
+    if(!sel.size) return showToast('اختر أزهارًا أولًا 🌸');
+    const ok=q.items.every((it,i)=>sel.has(i)===(it.k===1));
+    if(!ok){ sel.clear(); els.forEach(e=>{e.classList.remove('sel');e.setAttribute('aria-pressed','false');}); }
+    api.submit(ok);
+    if(ok) els.forEach(e=>e.disabled=true);
+  }));
+  return { reveal(){ els.forEach((e,i)=>{ e.classList.remove('sel'); e.disabled=true; if(q.items[i].k===1) e.classList.add('right'); }); } };
+};
+
+W.match = (box, q, api) => {
+  const P = q.pairs;
+  const rightOrder = seededShuffle(P.length, hashStr(q.id));
+  let sel=null;
+  const done=new Set();
+  const L=[], R=[];
+  const grid=document.createElement('div'); grid.className='mcols';
+  const leftCol=document.createElement('div');
+  const rightCol=document.createElement('div');
+  const draw=()=>{
+    L.forEach((b,i)=>{b.classList.toggle('done',done.has(i));b.classList.toggle('sel',sel===i);b.disabled=done.has(i);});
+    R.forEach((b,i)=>{b.classList.toggle('done',done.has(i));b.disabled=done.has(i);});
+  };
+  P.forEach((p,i)=>{
+    const b=document.createElement('button');
+    b.className='mtile arabic'; b.textContent=p[0];
+    b.onclick=()=>{ if(done.has(i)) return; sel=i; draw(); Voice.speak(p[0]); };
+    L[i]=b; leftCol.appendChild(b);
+  });
+  rightOrder.forEach(r=>{
+    const b=document.createElement('button');
+    b.className='mtile emoji'; b.textContent=P[r][1];
+    b.onclick=()=>{
+      if(done.has(r)) return;
+      if(sel==null){ showToast('اختر من العمود الآخر أولًا 👆'); return; }
+      if(sel===r){ done.add(r); sel=null; draw(); Voice.speak(P[r][0]); SFX.play('click'); if(done.size===P.length) api.submit(true); }
+      else { sel=null; draw(); api.submit(false); }
+    };
+    R[r]=b; rightCol.appendChild(b);
+  });
+  grid.appendChild(leftCol); grid.appendChild(rightCol);
+  box.appendChild(grid);
+  return {
+    reveal(){
+      const sol=document.createElement('div');
+      sol.style.cssText='display:grid;gap:8px;padding:14px;background:var(--mint-light);border-radius:16px;border:2px solid var(--mint);';
+      const title=document.createElement('div');
+      title.style.cssText='font-weight:900;color:#0a7a5a;margin-bottom:6px;text-align:center;';
+      title.textContent='✅ الحل الصحيح:';
+      sol.appendChild(title);
+      P.forEach(p=>{
+        const row=document.createElement('div');
+        row.style.cssText='display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:8px 12px;';
+        const w=document.createElement('span');
+        w.style.cssText="font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;flex:1;color:var(--purple);";
+        w.textContent=p[0];
+        const e=document.createElement('span');
+        e.style.cssText='font-size:1.9rem;'; e.textContent=p[1];
+        row.append(w,e); sol.appendChild(row);
+      });
+      grid.replaceChildren(sol);
+    }
+  };
+};
+
+W.order = (box, q, api) => {
+  const n=q.items.length;
+  const pool=seededShuffle(n, hashStr(q.id));
+  let placed=[];
+  const pb=document.createElement('div'); pb.className='ordbox';
+  const qb=document.createElement('div'); qb.className='ordpool';
+  const chip=(idx,num,fn)=>{
+    const b=document.createElement('button');
+    b.className='chip'+(num?' placed':'');
+    if(num){ const badge=document.createElement('b'); badge.textContent=num; b.appendChild(badge); }
+    const txt=document.createElement('span'); txt.textContent=q.items[idx]; b.appendChild(txt);
+    b.onclick=fn; return b;
+  };
+  const chk=mkCheck(()=>{
+    const ok=placed.every((v,i)=>v===i);
+    if(!ok){ placed=[]; draw(); }
+    api.submit(ok);
+    if(ok){ pb.querySelectorAll('button').forEach(x=>x.disabled=true); qb.querySelectorAll('button').forEach(x=>x.disabled=true); }
+  });
+  function draw(){
+    pb.replaceChildren(...placed.map((idx,k)=>chip(idx,k+1,()=>{placed.splice(k,1);draw();})));
+    qb.replaceChildren(...pool.filter(i=>!placed.includes(i)).map(i=>chip(i,0,()=>{placed.push(i);draw();})));
+    chk.disabled = placed.length !== n;
+  }
+  const lab1=document.createElement('div'); lab1.className='ordlab'; lab1.textContent='ترتيبك:';
+  const lab2=document.createElement('div'); lab2.className='ordlab'; lab2.textContent='اضغط بالترتيب:';
+  box.append(lab1,pb,lab2,qb,chk);
+  draw();
+  return { reveal(){ placed=Array.from({length:n},(_,i)=>i); draw(); } };
+};
+
+/* ✨ FIXED: W.trace — retry mechanism + unified pointer events */
+W.trace = (box, q, api) => {
+  const wrap=document.createElement('div'); wrap.className='trace-wrap';
+  const disp=document.createElement('div'); disp.className='letter-display'; disp.textContent=q.letter;
+  const cv=document.createElement('canvas'); cv.className='trace-canvas';
+  const controls=document.createElement('div'); controls.className='trace-controls';
+  const clearBtn=document.createElement('button'); clearBtn.className='btn btn-ghost btn-sm'; clearBtn.textContent='🧹 مسح';
+  const speakBtn=document.createElement('button'); speakBtn.className='btn btn-ghost btn-sm'; speakBtn.textContent='🔊 اسمع';
+  speakBtn.onclick=()=>Voice.speak(q.letter);
+  const doneBtn=document.createElement('button'); doneBtn.className='btn btn-mint btn-sm'; doneBtn.textContent='انتهيت ✅';
+  controls.append(clearBtn,speakBtn,doneBtn);
+  wrap.append(disp,cv,controls); box.appendChild(wrap);
+
+  const ctx=cv.getContext('2d');
+  let drawn=false, lastDraw=[];
+  let retries = 0;
+  let ro = null;
+
+  function resize(){
+    const rect=cv.getBoundingClientRect();
+    const dpr=Math.min(window.devicePixelRatio||1, 2);
+    if(rect.width <= 0) return false;
+    cv.width=Math.round(rect.width*dpr);
+    cv.height=Math.round(rect.width*dpr*0.64);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawGuide();
+    if(lastDraw.length){
+      ctx.strokeStyle='#9B59FF'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.lineJoin='round';
+      lastDraw.forEach(s=>{
+        if(s.length<2) return;
+        ctx.beginPath();
+        s.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+        ctx.stroke();
+      });
+    }
+    return true;
+  }
+
+  function drawGuide(){
+    const dpr=Math.min(window.devicePixelRatio||1, 2);
+    ctx.save(); ctx.setTransform(dpr,0,0,dpr,0,0);
+    const vw=cv.width/dpr, vh=cv.height/dpr;
+    ctx.clearRect(0,0,vw,vh);
+    ctx.strokeStyle='rgba(155,89,255,0.15)'; ctx.lineWidth=1.5; ctx.setLineDash([8,8]);
+    [vh*0.25,vh*0.5,vh*0.75].forEach(y=>{ctx.beginPath();ctx.moveTo(20,y);ctx.lineTo(vw-20,y);ctx.stroke();});
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(155,89,255,0.13)';
+    ctx.font=`bold ${vh*0.72}px Amiri, serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(q.letter, vw/2, vh/2);
+    ctx.restore();
+  }
+
+  function tryResize(){
+    if(resize()) return;
+    if(retries < 40){
+      retries++;
+      setTimeout(tryResize, 40);
+    }
+  }
+  setTimeout(tryResize, 10);
+
+  let drawing=false, currentStroke=[];
+  const getPos = (clientX, clientY) => {
+    const r = cv.getBoundingClientRect();
+    return { x: clientX - r.left, y: clientY - r.top };
+  };
+  const startAt = (x,y) => {
+    drawing = true; drawn = true;
+    currentStroke = [getPos(x,y)];
+    lastDraw.push(currentStroke);
+    ctx.strokeStyle='#9B59FF'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.beginPath(); ctx.moveTo(currentStroke[0].x, currentStroke[0].y);
+  };
+  const moveTo = (x,y) => {
+    if(!drawing) return;
+    const p = getPos(x,y);
+    currentStroke.push(p);
+    ctx.lineTo(p.x,p.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p.x,p.y);
+  };
+  const end = () => { drawing = false; };
+
+  const onPointerDown = e => { e.preventDefault(); startAt(e.clientX, e.clientY); };
+  const onPointerMove = e => { e.preventDefault(); moveTo(e.clientX, e.clientY); };
+  const onPointerUp = e => { e.preventDefault(); end(); };
+
+  if(window.PointerEvent){
+    cv.addEventListener('pointerdown', onPointerDown);
+    cv.addEventListener('pointermove', onPointerMove);
+    cv.addEventListener('pointerup', onPointerUp);
+    cv.addEventListener('pointerleave', onPointerUp);
+    cv.addEventListener('pointercancel', onPointerUp);
+  } else {
+    cv.addEventListener('mousedown', e=>startAt(e.clientX, e.clientY));
+    cv.addEventListener('mousemove', e=>moveTo(e.clientX, e.clientY));
+    cv.addEventListener('mouseup', end);
+    cv.addEventListener('mouseleave', end);
+    cv.addEventListener('touchstart', e=>{ const t=e.touches[0]; startAt(t.clientX, t.clientY); }, {passive:false});
+    cv.addEventListener('touchmove', e=>{ e.preventDefault(); const t=e.touches[0]; moveTo(t.clientX, t.clientY); }, {passive:false});
+    cv.addEventListener('touchend', end);
+  }
+
+  clearBtn.onclick=()=>{lastDraw=[];drawn=false;drawGuide();};
+  doneBtn.onclick=()=>{if(!drawn)return showToast('ارسم الحرف أولًا ✏️');doneBtn.disabled=true;clearBtn.disabled=true;api.submit(true);};
+
+  if(window.ResizeObserver){
+    ro = new ResizeObserver(()=>{ if(cv.getBoundingClientRect().width > 0) resize(); });
+    ro.observe(cv);
+  }
+
+  return {
+    reveal(){ clearBtn.disabled=true; speakBtn.disabled=true; doneBtn.disabled=true; },
+    destroy(){ if(ro) try{ ro.disconnect(); }catch(e){} }
+  };
+};
+
+W.fillWord = (box, q, api) => {
+  const disp = document.createElement('div');
+  disp.className = 'fill-display';
+  disp.innerHTML = q.display.replace('__', '<span class="fill-underscore">_ _</span>');
+  box.appendChild(disp);
+  const spk=document.createElement('button');
+  spk.className='btn btn-primary btn-sm';
+  spk.style.cssText='display:block;margin:0 auto 12px;';
+  spk.textContent='🔊 اسمع الكلمة';
+  const fullWord = q.display.replace('__', q.answer);
+  spk.onclick=()=>Voice.speak(fullWord);
+  box.appendChild(spk);
+  setTimeout(()=>Voice.speak(fullWord), 400);
+  const inputWrap=document.createElement('div');
+  inputWrap.style.cssText='display:flex;justify-content:center;margin:16px 0;';
+  const input=document.createElement('input');
+  input.type='text';
+  input.maxLength=2;
+  input.autocomplete='off';
+  input.setAttribute('aria-label','اكتب الحرف الناقص');
+  input.style.cssText="width:120px;height:120px;text-align:center;font-family:'Amiri',serif;font-size:3.5rem;font-weight:700;border:3px solid var(--purple-light);border-radius:24px;background:white;color:var(--purple);direction:rtl;";
+  input.addEventListener('focus',()=>{input.style.borderColor='var(--pink)';});
+  input.addEventListener('blur',()=>{input.style.borderColor='var(--purple-light)';});
+  input.addEventListener('input',()=>{input.classList.remove('ok','bad');});
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check();}});
+  inputWrap.appendChild(input);
+  box.appendChild(inputWrap);
+  addHint(box, q);
+  function check(){
+    const val=(input.value||'').trim();
+    if(!val) return showToast('اكتب الحرف ✏️');
+    if(val===q.answer){ input.classList.add('ok'); api.submit(true); }
+    else { input.classList.add('bad'); api.submit(false); }
+  }
+  box.appendChild(mkCheck(check));
+  return { reveal(){ input.value=q.answer; input.classList.remove('bad'); input.classList.add('ok'); input.disabled=true; } };
+};
+
+W.train = (box, q, api) => {
+  const inputs = [];
+  q.rows.forEach((row, idx) => {
+    const tr = document.createElement('div');
+    tr.className = 'train-row';
+    const loco = document.createElement('div');
+    loco.className = 'train-locomotive';
+    loco.innerHTML = '🚂<span class="smoke">💨</span>';
+    tr.appendChild(loco);
+    const wagon = document.createElement('div');
+    wagon.className = 'train-wagon';
+    const input = document.createElement('input');
+    input.className = 'train-input';
+    input.maxLength = 2;
+    input.autocomplete = 'off';
+    input.addEventListener('input', () => { input.classList.remove('ok','bad'); });
+    input.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); check(); } });
+    inputs.push({input, row});
+    const word = document.createElement('span');
+    word.className = 'train-word';
+    word.textContent = row.display;
+    wagon.appendChild(input);
+    wagon.appendChild(word);
+    tr.appendChild(wagon);
+    box.appendChild(tr);
+  });
+  addHint(box, q);
+  function check(){
+    let allFilled = true, allCorrect = true;
+    inputs.forEach(({input,row}) => {
+      const v = (input.value||'').trim();
+      if(!v){ allFilled = false; input.classList.add('bad'); }
+      else if(v === row.answer){ input.classList.add('ok'); input.classList.remove('bad'); }
+      else { input.classList.add('bad'); input.classList.remove('ok'); allCorrect = false; }
+    });
+    if(!allFilled){ api.submit(false); showToast('اكتب كل الحروف ✏️'); return; }
+    if(allCorrect){ api.submit(true); }
+    else api.submit(false);
+  }
+  const chk = mkCheck(check);
+  box.appendChild(chk);
+  return {
+    reveal(){
+      inputs.forEach(({input, row}) => {
+        input.value = row.answer;
+        input.classList.remove('bad');
+        input.classList.add('ok');
+        input.disabled = true;
+      });
+      chk.disabled = true;
+    }
+  };
+};
+
+W.cloud = (box, q, api) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'cloud-card';
+  const content = document.createElement('div');
+  content.className = 'cloud-content';
+  content.textContent = q.content;
+  wrap.appendChild(content);
+  const numBadge = document.createElement('div');
+  numBadge.className = 'cloud-num';
+  numBadge.textContent = q.num;
+  wrap.appendChild(numBadge);
+  box.appendChild(wrap);
+  const spkBtn = document.createElement('button');
+  spkBtn.className = 'btn btn-primary';
+  spkBtn.style.cssText = 'display:block;margin:20px auto 12px;';
+  spkBtn.textContent = '🔊 اسمع السورة';
+  spkBtn.onclick = () => Voice.speak(q.content);
+  box.appendChild(spkBtn);
+  setTimeout(() => Voice.speak(q.content), 500);
+  const doneBtn = document.createElement('button');
+  doneBtn.className = 'btn btn-mint';
+  doneBtn.style.cssText = 'width:100%;margin-top:14px;';
+  doneBtn.textContent = 'حفظت السورة ✅';
+  doneBtn.onclick = () => { doneBtn.disabled = true; spkBtn.disabled = true; api.submit(true); };
+  box.appendChild(doneBtn);
+  return { reveal(){ doneBtn.disabled = true; spkBtn.disabled = true; } };
+};
+
+W.pie = (box, q, api) => {
+  const n = q.letters.length;
+  const shuffled = seededShuffle(n, hashStr(q.id));
+  let placed = [];
+  const pieWrap = document.createElement('div');
+  pieWrap.className = 'pie-wrap';
+  const circle = document.createElement('div');
+  circle.className = 'pie-circle';
+  pieWrap.appendChild(circle);
+  const orderBox = document.createElement('div');
+  orderBox.className = 'ordbox';
+  orderBox.style.cssText = 'min-height:56px;justify-content:center;';
+  const pool = document.createElement('div');
+  pool.className = 'ordpool';
+  pool.style.cssText = 'min-height:56px;justify-content:center;';
+  const checkBtn = mkCheck(()=>{
+    const ok = placed.every((v,i)=>v===i);
+    if(!ok){ placed=[]; draw(); }
+    api.submit(ok);
+    if(ok){ checkBtn.disabled = true; }
+  });
+  function drawPie(){
+    circle.innerHTML = '';
+    const positions = ['p1','p2','p3','p4','p5','p6','p7'];
+    q.letters.forEach((l,i)=>{
+      const p = document.createElement('div');
+      p.className = 'pie-piece ' + positions[i];
+      p.textContent = l;
+      circle.appendChild(p);
+    });
+  }
+  function chip(idx, fn){
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = q.letters[idx];
+    b.onclick = fn;
+    return b;
+  }
+  function draw(){
+    orderBox.replaceChildren(...placed.map((idx,k)=>chip(idx,()=>{placed.splice(k,1);draw();})));
+    pool.replaceChildren(...shuffled.filter(i=>!placed.includes(i)).map(i=>chip(i,()=>{placed.push(i);draw();})));
+    checkBtn.disabled = placed.length !== n;
+  }
+  const l1 = document.createElement('div'); l1.className='ordlab'; l1.textContent='ترتيبك:';
+  const l2 = document.createElement('div'); l2.className='ordlab'; l2.textContent='اضغط بالترتيب:';
+  box.appendChild(pieWrap);
+  box.append(l1, orderBox, l2, pool, checkBtn);
+  drawPie(); draw();
+  return { reveal(){ placed = Array.from({length:n},(_,i)=>i); draw(); } };
+};
+
+/* ✨ FIXED: W.sort — مع إمكانية Undo بالنقر على الكلمة داخل البيت */
+W.sort = (box, q, api) => {
+  let selChip = null;
+  const placedMap = {};
+  q.houses.forEach((h,hi) => { placedMap[hi] = []; });
+  const grid = document.createElement('div');
+  grid.className = 'sort-grid';
+
+  const houseEls = q.houses.map((h,hi) => {
+    const el = document.createElement('div');
+    el.className = 'sort-house';
+    const roof = document.createElement('div');
+    roof.className = 'roof';
+    roof.textContent = h.label;
+    const placedList = document.createElement('div');
+    placedList.className = 'placed-list';
+    el.append(roof, placedList);
+    el.onclick = () => {
+      if(!selChip) return;
+      if(h.accepts.includes(selChip.word)) {
+        placedMap[hi].push(selChip.word);
+        if(selChip.el.parentNode) selChip.el.parentNode.removeChild(selChip.el);
+        selChip = null;
+        redraw();
+        checkComplete();
+      } else {
+        showToast('هذه الكلمة لا تنتمي لهذا البيت 🏠');
+        SFX.play('wrong');
+      }
+    };
+    grid.appendChild(el);
+    return { el, placedList, house: h, idx: hi };
+  });
+
+  const poolEl = document.createElement('div');
+  poolEl.className = 'sort-pool';
+  const chipEls = [];
+  q.pool.forEach(w => {
+    const b = document.createElement('button');
+    b.className = 'chip-sort';
+    b.textContent = w;
+    b.onclick = () => {
+      if(selChip) selChip.el.classList.remove('sel');
+      if(selChip && selChip.el === b){ selChip = null; return; }
+      selChip = { word: w, el: b };
+      b.classList.add('sel');
+      Voice.speak(w);
+    };
+    poolEl.appendChild(b);
+    chipEls.push({ word: w, el: b });
+  });
+
+  function redraw(){
+    houseEls.forEach(({placedList, idx})=>{
+      placedList.innerHTML = '';
+      placedMap[idx].forEach((w,k)=>{
+        const c = document.createElement('span');
+        c.className = 'chip-mini';
+        c.textContent = w;
+        c.title = 'اضغط لإرجاع الكلمة';
+        c.onclick = (ev) => {
+          ev.stopPropagation();
+          // undo: أرجع الكلمة إلى pool
+          placedMap[idx].splice(k, 1);
+          const found = chipEls.find(ce => ce.word === w && !ce.el.parentNode);
+          if(found){
+            poolEl.appendChild(found.el);
+            found.el.disabled = false;
+          }
+          redraw();
+        };
+        placedList.appendChild(c);
+      });
+    });
+  }
+
+  function checkComplete(){
+    const total = Object.values(placedMap).reduce((a,arr)=>a+arr.length,0);
+    if(total === q.pool.length){
+      const ok = q.houses.every((h,hi)=>placedMap[hi].every(w=>h.accepts.includes(w)));
+      api.submit(ok);
+      if(ok) chipEls.forEach(c=>c.el.disabled = true);
+    }
+  }
+
+  box.append(grid, poolEl);
+  addHint(box, q);
+  return {
+    reveal(){
+      houseEls.forEach(({placedList, house})=>{
+        placedList.innerHTML = '';
+        house.accepts.forEach(w=>{
+          const c = document.createElement('span');
+          c.className = 'chip-mini';
+          c.textContent = w;
+          placedList.appendChild(c);
+        });
+      });
+      chipEls.forEach(c=>c.el.disabled = true);
+    }
+  };
+};
+
+/* Overlay */
+let currentSession = null;
+let currentInst = null;
+
+function openUnit(sess){
+  currentSession = sess;
+  const ov = document.getElementById('unitOverlay');
+  ov.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  const color = FIELDCOL[sess.field] || ['#9B59FF','#E8D5FF'];
+  document.getElementById('unitTopbar').style.background = `linear-gradient(135deg, ${color[0]}, ${color[0]}cc)`;
+  document.getElementById('unitTitle').textContent = sess.title;
+  document.getElementById('unitBody').classList.remove('hidden');
+  document.getElementById('unitBottom').classList.remove('hidden');
+  document.querySelector('.unit-progress-wrap').classList.remove('hidden');
+  document.querySelector('.unit-meta').classList.remove('hidden');
+  document.getElementById('unitResultView').classList.add('hidden');
+  document.getElementById('unitResultView').innerHTML = '';
+  loadExercise();
+}
+
+function closeUnit(){
+  Voice.stop();
+  const ov = document.getElementById('unitOverlay');
+  ov.classList.add('hidden');
+  document.body.style.overflow = '';
+  currentSession = null;
+  if(currentInst && currentInst.destroy) try{ currentInst.destroy(); }catch(e){}
+  currentInst = null;
+  renderHome();
+}
+
+function loadExercise(){
+  const sess = currentSession; if(!sess) return;
+  if(sess.finished){ showUnitResult(); return; }
+  if(currentInst && currentInst.destroy) try{ currentInst.destroy(); }catch(e){}
+  currentInst = null;
+  const q = sess.cur;
+  const color = FIELDCOL[sess.field] || ['#9B59FF','#E8D5FF'];
+  document.getElementById('unitStars').textContent = `⭐ ${sess.sstars}`;
+  document.getElementById('unitIdx').textContent = `${sess.i+1} / ${sess.list.length}`;
+  document.getElementById('unitPage').textContent = q.p ? `📖 ص ${q.p}` : '';
+  const pf = document.getElementById('unitProgress');
+  pf.style.background = color[0];
+  pf.style.width = (sess.i*100/sess.list.length) + '%';
+  document.getElementById('unitQuestion').textContent = q.t;
+  const vis = document.getElementById('unitVis');
+  vis.textContent = '';
+  const box = document.getElementById('unitBox');
+  box.innerHTML = '';
+  // ✨ FIX: لا نُفعّل inert أبداً عند التحميل — فقط عند القفل
+  box.inert = false;
+  const fb = document.getElementById('unitFb');
+  fb.className = 'fb hidden'; fb.textContent = '';
+  const api = {submit: ok => {
+    sess.submit(ok);
+    if(sess.revealed && currentInst && currentInst.reveal) currentInst.reveal();
+    refreshOverlay();
+  }};
+  const widget = W[q.type];
+  if(widget){
+    try{
+      currentInst = widget(box, q, api);
+    }catch(err){
+      console.error('Widget error:', err);
+      const p=document.createElement('p');
+      p.style.cssText='padding:20px;text-align:center;color:var(--red);font-weight:700;';
+      p.textContent='⚠️ خطأ في تحميل النشاط. حاول مرة أخرى.';
+      box.appendChild(p);
+    }
+  } else {
+    const p=document.createElement('p'); p.textContent='نوع غير مدعوم'; box.appendChild(p);
+  }
+  if(!['trace','cloud','pie','sort'].includes(q.type) && !q.word) Voice.speak(q.t);
+  refreshOverlay();
+}
+
+function refreshOverlay(){
+  const sess = currentSession; if(!sess) return;
+  const box = document.getElementById('unitBox');
+  // ✨ FIX: Only set inert when locked
+  box.inert = !!sess.locked;
+  const fb = document.getElementById('unitFb');
+  if(sess.fb){ fb.className = 'fb ' + (sess.last?'good':(sess.fbIsExplain?'explain':'try')); fb.textContent = sess.fb; }
+  else { fb.className='fb hidden'; fb.textContent=''; }
+  document.getElementById('unitStars').textContent = `⭐ ${sess.sstars}`;
+  const bottom = document.getElementById('unitBottom'); bottom.innerHTML = '';
+  if(!sess.locked && sess.skips < MAX_SKIPS){
+    const skipBtn = document.createElement('button');
+    skipBtn.className='linkbtn'; skipBtn.textContent = `تخطّي (${MAX_SKIPS - sess.skips})`;
+    skipBtn.onclick = () => { sess.skip(); if(sess.finished) return showUnitResult(); loadExercise(); };
+    bottom.appendChild(skipBtn);
+  }
+  const grow = document.createElement('span'); grow.className='grow'; bottom.appendChild(grow);
+  if(sess.locked){
+    const nextBtn = document.createElement('button');
+    nextBtn.className='btn btn-primary';
+    nextBtn.textContent = sess.isLast ? 'النتيجة 🏆' : 'التالي ➡️';
+    nextBtn.onclick = () => { sess.next(); if(sess.finished) return showUnitResult(); loadExercise(); };
+    bottom.appendChild(nextBtn);
+  } else if(sess.tries > 0){
+    const fallback = document.createElement('button');
+    fallback.className='btn btn-ghost';
+    fallback.textContent='التالي ➡️';
+    fallback.style.opacity='0.85';
+    fallback.onclick=()=>{
+      sess.locked=true; sess.revealed=true; sess.revealedCount++;
+      sess.fb='💡 '+(sess.cur.explain||('الحل: '+solutionText(sess.cur)));
+      sess.fbIsExplain=true;
+      recordAttempt(sess.cur.id,'revealed');
+      if(currentInst && currentInst.reveal) currentInst.reveal();
+      refreshOverlay();
+    };
+    bottom.appendChild(fallback);
+  }
+}
+
+function showUnitResult(){
+  const sess = currentSession; if(!sess) return;
+  const good = sess.pct >= 60;
+  document.getElementById('unitBody').classList.add('hidden');
+  document.getElementById('unitBottom').classList.add('hidden');
+  document.querySelector('.unit-progress-wrap').classList.add('hidden');
+  document.querySelector('.unit-meta').classList.add('hidden');
+  const rv = document.getElementById('unitResultView');
+  rv.classList.remove('hidden');
+  rv.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;text-align:center;max-width:520px;margin:0 auto;">
+      <div style="font-size:5.5rem;">${good ? '🎉' : '💪'}</div>
+      <h2 style="font-size:2rem;color:var(--purple);margin:10px 0;">${good ? 'أحسنت!' : 'حاول مرة أخرى'}</h2>
+      <div style="display:flex;gap:8px;justify-content:center;font-size:3.2rem;margin:14px 0;color:var(--yellow);">${[0,1,2].map(i=>`<span>${i<sess.rating?'⭐':'☆'}</span>`).join('')}</div>
+      <div style="background:white;border:2.5px solid var(--purple-light);border-radius:22px;padding:20px;width:100%;box-shadow:var(--shadow-lg);">
+        <h3 style="color:var(--purple);margin-bottom:10px;">📊 تفاصيل النتيجة</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--purple-soft);padding:10px;border-radius:12px;text-align:center;">
+            <span style="font-size:1.5rem;font-weight:900;color:var(--purple);display:block;">${sess.firstTryCorrect}/${sess.list.length}</span>
+            <span style="font-size:0.78rem;color:var(--text-soft);font-weight:700;">صحيحة أول مرة</span>
+          </div>
+          <div style="background:var(--purple-soft);padding:10px;border-radius:12px;text-align:center;">
+            <span style="font-size:1.5rem;font-weight:900;color:var(--purple);display:block;">${sess.eventualCorrect}</span>
+            <span style="font-size:0.78rem;color:var(--text-soft);font-weight:700;">بعد محاولات</span>
+          </div>
+          <div style="background:var(--purple-soft);padding:10px;border-radius:12px;text-align:center;">
+            <span style="font-size:1.5rem;font-weight:900;color:var(--purple);display:block;">${sess.revealedCount}</span>
+            <span style="font-size:0.78rem;color:var(--text-soft);font-weight:700;">تم كشفها</span>
+          </div>
+          <div style="background:var(--purple-soft);padding:10px;border-radius:12px;text-align:center;">
+            <span style="font-size:1.5rem;font-weight:900;color:var(--purple);display:block;">${sess.skippedCount}</span>
+            <span style="font-size:0.78rem;color:var(--text-soft);font-weight:700;">تم تخطيها</span>
+          </div>
+        </div>
+        <p style="text-align:center;font-weight:900;color:var(--pink);font-size:1.1rem;margin-top:12px;">⭐ كسبت ${sess.sstars} نجمة</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;">
+          <button class="btn btn-primary" onclick="closeUnit()">🏠 الفهرس</button>
+          <button class="btn btn-ghost" onclick="retryUnit()">🔄 مرة أخرى</button>
+        </div>
+      </div>
+    </div>
+  `;
+  if(good) setTimeout(confetti, 250);
+}
+
+function retryUnit(){
+  if(!currentSession) return;
+  const old = currentSession;
+  currentSession = new Session({key:old.key, title:old.title, list:old.list, field:old.field});
+  document.getElementById('unitBody').classList.remove('hidden');
+  document.getElementById('unitBottom').classList.remove('hidden');
+  document.querySelector('.unit-progress-wrap').classList.remove('hidden');
+  document.querySelector('.unit-meta').classList.remove('hidden');
+  document.getElementById('unitResultView').classList.add('hidden');
+  document.getElementById('unitResultView').innerHTML='';
+  loadExercise();
+}
+
+function renderHome(){
+  const grid = document.getElementById('chaptersGrid'); if(!grid) return;
+  grid.innerHTML='';
+  let td=0, tq=0;
+  DATA.units.forEach(u => { tq += u.qs.length; td += u.qs.filter(q => S.done[q.id]).length; });
+  const pct = tq ? Math.round(td*100/tq) : 0;
+  const op = document.getElementById('overallProgress');
+  if(op) op.innerHTML = `<div class="row"><span>📊 التقدم الكلي</span><span>${td} / ${tq} (${pct}٪)</span></div><div class="bar"><i style="width:${pct}%"></i></div>`;
+  DATA.units.forEach((u, i) => {
+    const dc = u.qs.filter(q => S.done[q.id]).length;
+    const p = Math.round(dc*100/u.qs.length);
+    const status = dc === u.qs.length ? '🏆' : (dc > 0 ? '⏳' : '');
+    const card = document.createElement('button');
+    card.className = 'chapter-card';
+    card.innerHTML = `${status?`<span class="status-badge">${status}</span>`:''}<div class="emoji">${u.icon}</div><div class="num">${i+1}</div><div class="title">${u.title.replace(/^المحور \d+: /,'')}</div><div class="bar"><i style="width:${p}%"></i></div><div class="sub">${dc} / ${u.qs.length}</div>`;
+    card.onclick = () => openUnit(new Session({key:'unit'+i, title:u.title, list:u.qs, field:u.field}));
+    grid.appendChild(card);
+  });
+}
+
+function renderLetters(){
+  const grid = document.getElementById('lettersGrid');
+  if(!grid) return;
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px;margin-top:12px;';
+  grid.innerHTML='';
+  ARABIC_LETTERS.forEach(L => {
+    const b = document.createElement('button');
+    b.style.cssText = "padding:14px 6px;background:linear-gradient(135deg,#FFE0F0,#E8D5FF);border:2.5px solid transparent;border-radius:16px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:inherit;color:inherit;";
+    b.onmouseover = () => { b.style.transform='translateY(-3px)'; b.style.borderColor='var(--pink)'; };
+    b.onmouseout = () => { b.style.transform='translateY(0)'; b.style.borderColor='transparent'; };
+    b.innerHTML = `<div style="font-family:'Amiri',serif;font-size:2.4rem;font-weight:900;color:var(--purple);line-height:1;">${L.letter}</div><div style="font-size:0.7rem;color:var(--text-soft);font-weight:700;margin-top:4px;">${L.name}</div>`;
+    b.onclick = () => {
+      Voice.speak(L.name);
+      setTimeout(() => openTraceLetter(L.letter), 500);
+    };
+    grid.appendChild(b);
+  });
+}
+
+function openTraceLetter(letter){
+  const sess = new Session({
+    key:'trace_'+letter, title:'كتابة حرف ' + letter, field:'communication',
+    list:[{id:'trace_'+letter, type:'trace', letter, t:'تتبَّعْ حَرْفَ «'+letter+'» بإصبعك', p:'—'}]
+  });
+  openUnit(sess);
+}
+
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+    const target = tab.dataset.target;
+    document.getElementById(target).classList.add('active');
+    if(target === 'parent') renderParent();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+function renderParent(){
+  const pc = document.getElementById('parentContent'); if(!pc) return;
+  const tq = DATA.units.reduce((a,u)=>a+u.qs.length, 0);
+  const done = Object.keys(S.done).length;
+  const mis = Object.keys(S.mistakes).length;
+  const pct = tq ? Math.round(done*100/tq) : 0;
+  pc.innerHTML = `
+    <div style="padding:14px;background:var(--purple-soft);border-radius:16px;margin-bottom:14px;">
+      <p style="margin:0 0 6px;font-weight:900;font-size:1.05rem;">${S.name||'الطفل'}: ${done} / ${tq} (${pct}٪)</p>
+      <p style="margin:0;color:var(--text-soft);font-size:0.9rem;">⭐ ${S.stars} نجمة • 🔥 ${S.streak} أيام • ❗ ${mis} للمراجعة</p>
+    </div>
+    <h3 style="color:var(--purple);margin:16px 0 8px;">📊 التقدم حسب المحاور</h3>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr>
+          <th style="padding:8px;border-bottom:1px solid var(--purple-light);text-align:start;">المحور</th>
+          <th style="padding:8px;border-bottom:1px solid var(--purple-light);text-align:start;">المنجز</th>
+          <th style="padding:8px;border-bottom:1px solid var(--purple-light);text-align:start;">أفضل</th>
+        </tr></thead>
+        <tbody>${DATA.units.map((u,i)=>{
+          const d = u.qs.filter(q => S.done[q.id]).length;
+          const b = S.best['unit'+i];
+          return `<tr>
+            <td style="padding:8px;border-bottom:1px solid var(--purple-light);">${u.icon} ${u.title.replace(/^المحور \d+: /,'')}</td>
+            <td style="padding:8px;border-bottom:1px solid var(--purple-light);">${d}/${u.qs.length}</td>
+            <td style="padding:8px;border-bottom:1px solid var(--purple-light);">${b != null ? b+'%' : '—'}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>
+    <h3 style="color:var(--purple);margin:18px 0 8px;">💾 حفظ / استعادة</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="exportBtn">📤 حفظ نسخة</button>
+      <button class="btn btn-ghost" id="importBtn">📥 استعادة</button>
+      <button class="btn btn-warn" id="resetBtn">♻️ إعادة</button>
+    </div>
+    <input type="file" id="importFile" accept=".json,application/json" style="display:none;">
+  `;
+  document.getElementById('exportBtn').onclick = () => {
+    try{ const blob=new Blob([JSON.stringify(S, null, 2)], {type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`daftari-${todayStr()}.json`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showToast('✅ تم التصدير'); }catch(e){ showToast('⚠️'); }
+  };
+  document.getElementById('importBtn').onclick = () => document.getElementById('importFile').click();
+  document.getElementById('importFile').onchange = e => {
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=()=>{try{S=mergeState(JSON.parse(r.result)); saveState(); renderParent(); renderHome(); showToast('✅ تم الاستيراد');}catch(err){showToast('⚠️');}};
+    r.readAsText(f);
+  };
+  document.getElementById('resetBtn').onclick = () => {
+    if(confirm('هل تريد مسح التقدم؟')){ S=DEFAULTS(); saveState(); renderParent(); renderHome(); showToast('تم'); }
+  };
+}
+
+window.addEventListener('load', () => {
+  const r = loadState();
+  if(!r.ok) setTimeout(()=>setSaveStatus('err'), 800);
+  renderHome();
+  renderLetters();
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){ const ov=document.getElementById('unitOverlay'); if(ov && !ov.classList.contains('hidden')) closeUnit(); }
+  });
+});
+</script>
+</body>
+</html>
